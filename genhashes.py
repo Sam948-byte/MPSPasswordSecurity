@@ -1,13 +1,9 @@
-import argparse
 import hashlib 
 import bcrypt
 
-def main():
-    parser = argparse.ArgumentParser(description='Generate hashes for a password')
-    parser.add_argument('password', type=str, help='Password to hash')
-    args = parser.parse_args()
+def main(password):
 
-    password    = args.password.encode('utf-8')
+    password = password.encode('utf-8')    
     sha256_hash = hashlib.sha256(password).hexdigest()
     sha512_hash = hashlib.sha512(password).hexdigest()
     md5_hash    = hashlib.md5(password).hexdigest()
@@ -21,4 +17,8 @@ def main():
     print(f'SHAKE-256: {shake_256}')
 
 if __name__ == '__main__':
-    main()
+    import argparse
+    parser = argparse.ArgumentParser(description='Generate hashes for a password')
+    parser.add_argument('password', type=str, help='Password to hash')
+    args = parser.parse_args()
+    main(args.password)

@@ -39,6 +39,6 @@ def create_passwords():
     return passwords
 
 def hash_passwords(passwords):
-    return {password: genhashes(password) for password in passwords}
+    return {password: genhashes.main(password) for password in passwords}
 
 print(hash_passwords(create_passwords()))

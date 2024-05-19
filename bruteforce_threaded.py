@@ -8,7 +8,7 @@ with open("wordlists/words.txt") as f:
     words = f.read().splitlines()
 final_words = [word for word in words if len(word) == 4 and word.isalpha()]
 
-def generate_dates(start_year=2000, end_year=2024):
+def generate_dates(start_year=2008, end_year=2010):
     """ Generate dates in DD/MM/YY format between the given years. """
     dates = []
     for year in range(start_year, end_year + 1):
