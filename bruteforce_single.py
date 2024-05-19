@@ -14,10 +14,10 @@ def generate_dates(start_year=2000, end_year=2024):
     """ Generate dates in DD/MM/YY format between the given years. """
     dates = []
     for year in range(start_year, end_year + 1):
-        for month in range(1, 32):
-            for day in range(1, 13):
+        for day in range(1, 32):
+            for month in range(1, 13):
                 try:
-                    dates.append(f"{day:02}/{month:02}/{year % 100:02}")
+                    dates.append(f"{month:02}/{day:02}/{year % 100:02}")
                 except ValueError:
                     continue
     return dates
@@ -32,7 +32,7 @@ def generate_words(length):
 
 def generate_numbers():
     """ Generate a list of possible numbers in the format. """
-    return (str(i) for i in range(10, 100))
+    return (str(i) for i in range(00, 100))
 
 def bruteforce(target_password):
     i = 0
