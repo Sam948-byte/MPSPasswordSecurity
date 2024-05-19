@@ -4,7 +4,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading
 
 print("Generating dictionary...")
-with open("words.txt") as f:
+with open("wordlists/words.txt") as f:
     words = f.read().splitlines()
 final_words = [word for word in words if len(word) == 4 and word.isalpha()]
 
@@ -12,10 +12,10 @@ def generate_dates(start_year=2000, end_year=2024):
     """ Generate dates in DD/MM/YY format between the given years. """
     dates = []
     for year in range(start_year, end_year + 1):
-        for month in range(1, 13):
-            for day in range(1, 32):
+        for day in range(1, 32):
+            for month in range(1, 13):
                 try:
-                    dates.append(f"{day:02}/{month:02}/{year % 100:02}")
+                    dates.append(f"{month:02}/{day:02}/{year % 100:02}")
                 except ValueError:
                     continue
     return dates
