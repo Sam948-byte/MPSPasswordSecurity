@@ -1,7 +1,9 @@
 import json
+import random
 import genhashes
 import concurrent.futures
 import calendar
+from tqdm import tqdm
 
 
 def generate_numbers():
@@ -13,12 +15,12 @@ def generate_numbers():
 
 
 def generate_words():
-    with open("wordlists/words4and5.txt") as f:
+    with open("wordlists/wordnet4and5.txt") as f:
         words = f.read().splitlines()
     return words
 
 
-def generate_dates(start_year=2024, end_year=2024):
+def generate_dates(start_year=2000, end_year=2024):
     """ Generate dates in MM/DD/YY format between the given years. """
     dates = []
     for year in range(start_year, end_year + 1):
@@ -26,7 +28,6 @@ def generate_dates(start_year=2024, end_year=2024):
             for day in range(1, calendar.monthrange(year, month)[1] + 1):
                 dates.append(f"{month:02}/{day:02}/{year % 100:02}")
     return dates
-
 
 def create_passwords(numbers, words, dates):
     passwords = []
@@ -37,12 +38,22 @@ def create_passwords(numbers, words, dates):
             for word in words
             for number in numbers
         ]
-        for future in concurrent.futures.as_completed(futures):
+        for future in tqdm(concurrent.futures.as_completed(futures), total=len(futures), desc="Generating passwords"):
             passwords.append(future.result())
     return passwords
 
-
 def create_password(number, word, date):
+    return genhashes.main(f"{date}{word}{number}")
+
+def create_random_password():
+    dates = generate_dates()
+    words = generate_words()
+    numbers = generate_numbers()
+
+    date = random.choice(dates)
+    word = random.choice(words)
+    number = random.choice(numbers)
+
     return genhashes.main(f"{date}{word}{number}")
 
 
