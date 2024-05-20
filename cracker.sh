@@ -1,29 +1,28 @@
 #!/bin/bash
 
-PASSWORDANDHASHES=$(python3 genPassAndHashes.py)
+# Check if the number of arguments provided is correct
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <number of hashes to generate>"
+    exit 1
+fi
 
-PASSWORD=$(echo $PASSWORDANDHASHES | cut -d ' ' -f 1)
+# generate wordlist
+if [ -e "wordlists/combined.txt" ]; then
+    echo "wordlist exists"
+else
+    echo "creating wordlist"
+    python3 combiner.py
+fi
 
-SHA256HASH=$(echo $PASSWORDANDHASHES | cut -d ' ' -f 2)
 
-SHA512HASH=$(echo $PASSWORDANDHASHES | cut -d ' ' -f 3)
+# clear files
+echo "" > hashes/random1000.json
+echo "" > hashes/sha512.txt
+echo "" > solution.txt
 
-MD5HASH=$(echo $PASSWORDANDHASHES | cut -d ' ' -f 4)
+#generate hashes
+python3 genRandom.py
+python3 parseFromJson.py
 
-SHAKEHASH=$(echo $PASSWORDANDHASHES | cut -d ' ' -f 5)
-
-BCRYPTHASH=$(echo $PASSWORDANDHASHES | cut -d ' ' -f 6)
-
-echo "Password and Hashes Generated:"
-
-echo "Password: $PASSWORD"
-
-echo "SHA256 Hash: $SHA256HASH"
-
-echo "SHA512 Hash: $SHA512HASH"
-
-echo "MD5 Hash: $MD5HASH"
-
-echo "SHAKE Hash: $SHAKEHASH"
-
-echo "BCRYPT Hash: $BCRYPTHASH"
+#crack hashes
+hashcat -m 1700 -O -o solution.txt hashes/sha512.txt -a 6 wordlists/combined.txt ?d?d
