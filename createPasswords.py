@@ -13,7 +13,7 @@ def generate_words():
     """ Generate all possible words of the given length, assuming the first letter is capitalized and the rest are not. """
     return (word for word in words)
 
-def generate_dates(start_year=2000, end_year=2024):
+def generate_dates(start_year=2024, end_year=2024):
     """ Generate dates in DD/MM/YY format between the given years. """
     dates = []
     for year in range(start_year, end_year + 1):
@@ -41,4 +41,7 @@ def create_passwords():
 def hash_passwords(passwords):
     return {password: genhashes.main(password) for password in passwords}
 
-print(hash_passwords(create_passwords()))
+data = hash_passwords(create_passwords())
+
+with open("hashes/hashes4and5.json", "w") as f:
+    json.dump(data, f)
