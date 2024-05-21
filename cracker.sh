@@ -9,6 +9,15 @@ fi
 # generate wordlist
 python3 dictGen.py
 
+#check for hashes directory and create if it doesn't exist
+if [ ! -d "hashes" ]; then
+    mkdir hashes
+fi
+
+#check for wordlists directory and create if it doesn't exist
+if [ ! -d "wordlists" ]; then
+    mkdir wordlists
+fi
 
 # clear files
 echo "" > hashes/randomHashes.json
