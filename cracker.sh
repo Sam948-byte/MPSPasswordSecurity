@@ -39,4 +39,4 @@ python3 parseFromJson.py $2
 hashcat -m $HASHTYPE -O -o hashes/solution.txt hashes/hashes.txt -a 6 wordlists/combined.txt ?d?d
 
 #check solution
-python3 solutionCheck.py
+python3 solutionCheck.py $2

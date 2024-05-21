@@ -3,7 +3,7 @@ import sys
 
 def main(type):
     # Read JSON data from a file
-    with open('hashes/randomHashes.json', 'r') as file:
+    with open('hashes/random.json', 'r') as file:
         data = json.load(file)
 
     with open("hashes/solution.txt", "r") as file:
