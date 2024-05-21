@@ -5,7 +5,7 @@ from nltk.corpus import wordnet
 from tqdm import tqdm
 
 
-def generate_dates(start_year=2000, end_year=2024):
+def generate_dates(start_year=2003, end_year=2024):
     """Generate dates in MM/DD/YY format between the given years."""
     dates = []
     for year in range(start_year, end_year + 1):

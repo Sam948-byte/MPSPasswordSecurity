@@ -16,7 +16,7 @@ def gen_randoms(num_hashes):
         for future in tqdm(as_completed(futures), total=num_hashes):
             passwords.append(future.result())
 
-    with open("hashes/randomHashes.json", "w") as f:
+    with open("hashes/random.json", "w") as f:
         json.dump(passwords, f, indent=4)
 
 

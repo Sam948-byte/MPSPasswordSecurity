@@ -13,9 +13,9 @@ def main(password):
     #return dict of hashes
     return {
         'password': password.decode('utf-8'),
-        'sha256': sha256_hash,
-        'sha512': sha512_hash,
-        'md5': md5_hash,
+        '1400': sha256_hash,
+        '1700': sha512_hash,
+        '0': md5_hash,
         'shake_256': shake_256,
         'bcrypt': bcrypt_hash
     }

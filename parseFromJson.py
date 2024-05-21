@@ -1,12 +1,22 @@
 import json
+import sys
 
-# Read JSON data from a file
-with open('hashes/randomHashes.json', 'r') as file:
-    data = json.load(file)
+def main(type):
+    # Read JSON data from a file
+    with open('hashes/random.json', 'r') as file:
+        data = json.load(file)
 
-# Extract sha512 hashes
-sha512_hashes = [entry["sha512"] for entry in data]
+    # Extract sha512 hashes
+    hashes = [entry[type] for entry in data]
 
-with open("hashes/sha512.txt", "w") as f:
-    for hash in sha512_hashes:
-        f.write(hash + "\n")
+    with open("hashes/hashes.txt", "w") as f:
+        for hash in hashes:
+            f.write(hash + "\n")
+
+if __name__ == "__main__":
+    #check for command line argument
+    if len(sys.argv) > 1:
+        print("Parsing hashes")
+        main(sys.argv[1])
+    else:
+        print("Please provide the type of hash to parse.")
