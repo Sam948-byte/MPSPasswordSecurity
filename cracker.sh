@@ -6,9 +6,6 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
-# generate wordlist
-python3 dictGen.py
-
 #check for hashes directory and create if it doesn't exist
 if [ ! -d "hashes" ]; then
     mkdir hashes
@@ -18,6 +15,9 @@ fi
 if [ ! -d "wordlists" ]; then
     mkdir wordlists
 fi
+
+# generate wordlist
+python3 dictGen.py
 
 # clear files
 echo "" > hashes/randomHashes.json
