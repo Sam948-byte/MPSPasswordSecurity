@@ -19,8 +19,7 @@ def generate_words():
 
     words = list(wordnet.words())
     final_words = [word for word in words if (len(word) == 4 or len(word) == 5)and word.isalpha()]
-    for word in final_words:
-        word = word.title()
+    final_words = [word.title() for word in final_words]
     return final_words
 
 
