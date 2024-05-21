@@ -9,6 +9,9 @@ fi
 if [ $# -ne 2 ]; then
     echo "Type of hash not provided, defaulting to SHA-512"
     HASHTYPE=1700
+elif [ $2 -ne 0 ] && [ $2 -ne 1700 ] && [ $2 -ne 1400 ]; then
+    echo "Invalid hash type, defaulting to SHA-512"
+    HASHTYPE=1700
 else
     HASHTYPE=$2
 fi
@@ -33,10 +36,10 @@ echo "" > hashes/solution.txt
 
 #generate hashes
 python3 genRandomThreaded.py $1
-python3 parseFromJson.py $2
+python3 parseFromJson.py $HASHTYPE
 
 #crack hashes
 hashcat -m $HASHTYPE -O -o hashes/solution.txt hashes/hashes.txt -a 6 wordlists/combined.txt ?d?d
 
 #check solution
-python3 solutionCheck.py $2
+python3 solutionCheck.py $HASHTYPE
