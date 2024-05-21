@@ -18,8 +18,13 @@ def generate_words():
     nltk.download("wordnet")
 
     words = list(wordnet.words())
-    return [word for word in words if (len(word) == 4 or len(word) == 5)and word.isalpha()]
+    final_words = [word for word in words if (len(word) == 4 or len(word) == 5)and word.isalpha()]
+    for word in final_words:
+        word = word.title()
+    return final_words
 
+
+print("Generating cracking dictionary...")
 
 with open("wordlists/combined.txt", "w") as file:
     dates = generate_dates()

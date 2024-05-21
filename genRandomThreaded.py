@@ -23,6 +23,7 @@ def gen_randoms(num_hashes):
 if __name__ == "__main__":
     #check for command line argument
     if len(sys.argv) > 1:
+        print("Generating random hashes...")
         gen_randoms(sys.argv[1])
     else:
         print("Please provide the number of hashes as a command line argument.")
