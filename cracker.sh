@@ -6,6 +6,7 @@ if [ $# -ne 1 ] && [ $# -ne 2 ]; then
     exit 1
 fi
 
+# set hash type
 if [ $# -ne 2 ]; then
     echo "Type of hash not provided, defaulting to SHA-512"
     HASHTYPE=1700
