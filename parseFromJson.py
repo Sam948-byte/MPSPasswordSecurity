@@ -1,7 +1,7 @@
 import json
 
 # Read JSON data from a file
-with open('hashes/random1000.json', 'r') as file:
+with open('hashes/randomHashes.json', 'r') as file:
     data = json.load(file)
 
 # Extract sha512 hashes

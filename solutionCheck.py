@@ -1,7 +1,7 @@
 import json
 
 # Read JSON data from a file
-with open('hashes/random1000.json', 'r') as file:
+with open('hashes/randomHashes.json', 'r') as file:
     data = json.load(file)
 
 with open("hashes/solution.txt", "r") as file:
@@ -19,13 +19,22 @@ for entry in data:
     hash_password_pairs[hash_value] = password
 
 for entry in solution:
+    if entry == "":
+        continue
     hash_value, password = entry.split(":")
     solution_pairs[hash_value] = password
+
+allgood = True
 
 # Verify the matching
 for hash_value, password in hash_password_pairs.items():
     if hash_value in solution_pairs:
         if password != solution_pairs[hash_value]:
             print(f"Hash value {hash_value} does not match")
+            allgood = False
     else:
         print(f"Hash value {hash_value} not found in the solution")
+        allgood = False
+
+if allgood:
+    print("All hash values match!")

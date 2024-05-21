@@ -16,13 +16,16 @@ fi
 
 
 # clear files
-echo "" > hashes/random1000.json
+echo "" > hashes/randomHashes.json
 echo "" > hashes/sha512.txt
-echo "" > solution.txt
+echo "" > hashes/solution.txt
 
 #generate hashes
-python3 genRandom.py
+python3 genRandomThreaded.py $1
 python3 parseFromJson.py
 
 #crack hashes
-hashcat -m 1700 -O -o solution.txt hashes/sha512.txt -a 6 wordlists/combined.txt ?d?d
+hashcat -m 1700 -O -o hashes/solution.txt hashes/sha512.txt -a 6 wordlists/combined.txt ?d?d
+
+#check solution
+python3 solutionCheck.py
