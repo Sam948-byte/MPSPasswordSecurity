@@ -1,4 +1,5 @@
 import calendar
+import os
 import nltk
 from nltk.corpus import wordnet
 from tqdm import tqdm
@@ -23,11 +24,23 @@ def generate_words():
     return final_words
 
 
-print("Generating cracking dictionary...")
+print("Generating cracking dictionaries...")
 
-with open("wordlists/combined.txt", "w") as file:
-    dates = generate_dates()
-    words = generate_words()
-    for date in tqdm(dates, total=len(dates)):
-        for word in words:
-            file.write(date + word + "\n")
+
+if os.path.isfile("wordlists/combined.txt"):
+    print("Full dictionary exists")
+else:
+    with open("wordlists/combined.txt", "w") as file:
+        dates = generate_dates()
+        words = generate_words()
+        for date in tqdm(dates, total=len(dates)):
+            for word in words:
+                file.write(date + word + "\n")
+
+if os.path.isfile("wordlists/4and5.txt"):
+    print("Password gen dictionary exists")
+else:
+    with open("wordlists/4and5.txt", "w") as file:
+        words = generate_words()
+        for word in tqdm(words, total=len(words)):
+            file.write(word + "\n")

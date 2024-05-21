@@ -15,7 +15,7 @@ def generate_numbers():
 
 
 def generate_words():
-    with open("wordlists/wordnet4and5.txt") as f:
+    with open("wordlists/4and5.txt") as f:
         words = f.read().splitlines()
     return words
 

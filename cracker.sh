@@ -7,12 +7,7 @@ if [ $# -ne 1 ]; then
 fi
 
 # generate wordlist
-if [ -e "wordlists/combined.txt" ]; then
-    echo "wordlist exists"
-else
-    echo "creating wordlist"
-    python3 combiner.py
-fi
+python3 dictGen.py
 
 
 # clear files
