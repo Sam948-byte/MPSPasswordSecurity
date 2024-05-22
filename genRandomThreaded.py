@@ -37,6 +37,8 @@ def hash_password(password):
     sha512_hash = hashlib.sha512(password).hexdigest()
     md5_hash    = hashlib.md5(password).hexdigest()
     shake_256   = hashlib.shake_256(password).hexdigest(64)
+    sha3_256 = hashlib.sha3_256(password).hexdigest()
+    sha3_512 = hashlib.sha3_512(password).hexdigest()
     bcrypt_hash = bcrypt.hashpw(password, bcrypt.gensalt()).decode('utf-8')
 
     #return dict of hashes
@@ -46,6 +48,8 @@ def hash_password(password):
         '1700': sha512_hash,
         '0': md5_hash,
         'shake_256': shake_256,
+        '17400': sha3_256,
+        '17600': sha3_512,
         'bcrypt': bcrypt_hash
     }
 
