@@ -6,7 +6,6 @@ import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import bcrypt
 from tqdm import tqdm
-import genhashes
 
 def generate_numbers():
     """ Generate a list of possible numbers in the format. """
