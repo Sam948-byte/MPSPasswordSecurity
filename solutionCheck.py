@@ -52,7 +52,7 @@ def main(type):
 if __name__ == "__main__":
     # check for command line argument
     if len(sys.argv) > 1:
-        print("\nParsing hashes")
+        print("\nParsing hashes...")
         main(sys.argv[1])
     else:
         print("Please provide the type of hash to parse.")
