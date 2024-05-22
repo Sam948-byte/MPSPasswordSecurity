@@ -40,18 +40,19 @@ def main(type):
                 allgood = False
         else:
             print(f"Hash value {hash_value} not found in the solution")
+            noMatches += 1
             allgood = False
 
     if allgood:
         print("All hash values match!")
     else:
-        print(f"Number of mismatches: {noMatches}")
+        print(f" {len(data) - noMatches}/{len(data)} hash values match.")
 
 
 if __name__ == "__main__":
     # check for command line argument
     if len(sys.argv) > 1:
-        print("Parsing hashes")
+        print("\nParsing hashes")
         main(sys.argv[1])
     else:
         print("Please provide the type of hash to parse.")

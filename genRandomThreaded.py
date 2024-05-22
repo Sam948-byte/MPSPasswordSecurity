@@ -1,8 +1,10 @@
 import calendar
+import hashlib
 import json
 import random
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import bcrypt
 from tqdm import tqdm
 import genhashes
 
@@ -29,6 +31,25 @@ def generate_dates(start_year=2003, end_year=2024):
                 dates.append(f"{month:02}/{day:02}/{year % 100:02}")
     return dates
 
+def hash_password(password):
+
+    password = password.encode('utf-8')    
+    sha256_hash = hashlib.sha256(password).hexdigest()
+    sha512_hash = hashlib.sha512(password).hexdigest()
+    md5_hash    = hashlib.md5(password).hexdigest()
+    shake_256   = hashlib.shake_256(password).hexdigest(64)
+    bcrypt_hash = bcrypt.hashpw(password, bcrypt.gensalt()).decode('utf-8')
+
+    #return dict of hashes
+    return {
+        'password': password.decode('utf-8'),
+        '1400': sha256_hash,
+        '1700': sha512_hash,
+        '0': md5_hash,
+        'shake_256': shake_256,
+        'bcrypt': bcrypt_hash
+    }
+
 def create_random_password():
     dates = generate_dates()
     words = generate_words()
@@ -38,7 +59,7 @@ def create_random_password():
     word = random.choice(words)
     number = random.choice(numbers)
 
-    return genhashes.main(f"{date}{word}{number}")
+    return hash_password(f"{date}{word}{number}")
 
 def gen_randoms(num_hashes):
     num_hashes = int(num_hashes)
