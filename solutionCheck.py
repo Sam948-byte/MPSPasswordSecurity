@@ -1,9 +1,10 @@
 import json
 import sys
 
+
 def main(type):
     # Read JSON data from a file
-    with open('hashes/random.json', 'r') as file:
+    with open("hashes/random.json", "r") as file:
         data = json.load(file)
 
     with open("hashes/solution.txt", "r") as file:
@@ -28,11 +29,14 @@ def main(type):
 
     allgood = True
 
+    noMatches = 0
+
     # Verify the matching
     for hash_value, password in hash_password_pairs.items():
         if hash_value in solution_pairs:
             if password != solution_pairs[hash_value]:
                 print(f"Hash value {hash_value} does not match")
+                noMatches += 1
                 allgood = False
         else:
             print(f"Hash value {hash_value} not found in the solution")
@@ -40,9 +44,12 @@ def main(type):
 
     if allgood:
         print("All hash values match!")
+    else:
+        print(f"Number of mismatches: {noMatches}")
+
 
 if __name__ == "__main__":
-    #check for command line argument
+    # check for command line argument
     if len(sys.argv) > 1:
         print("Parsing hashes")
         main(sys.argv[1])
