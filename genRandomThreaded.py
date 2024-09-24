@@ -50,7 +50,7 @@ def hash_password(password):
         'shake_256': shake_256,
         '17400': sha3_256,
         '17600': sha3_512,
-        'bcrypt': bcrypt_hash
+        '3200': bcrypt_hash
     }
 
 def create_random_password():

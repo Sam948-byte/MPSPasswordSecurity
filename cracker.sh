@@ -10,7 +10,7 @@ fi
 if [ $# -ne 2 ]; then
     echo "Type of hash not provided, defaulting to SHA-512"
     HASHTYPE=1700
-elif [ $2 -ne 0 ] && [ $2 -ne 1700 ] && [ $2 -ne 1400 ] && [ $2 -ne 17400 ] && [ $2 -ne 17600 ]; then
+elif [ $2 -ne 0 ] && [ $2 -ne 1700 ] && [ $2 -ne 1400 ] && [ $2 -ne 17400 ] && [ $2 -ne 17600 ] && [ $2 -ne 3200 ]; then
     echo "Invalid hash type, defaulting to SHA-512"
     HASHTYPE=1700
 else
