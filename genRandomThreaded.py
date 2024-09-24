@@ -7,6 +7,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import bcrypt
 from tqdm import tqdm
 
+phraseMinLen = 30
+
 def generate_numbers():
     """ Generate a list of possible numbers in the format. """
     nums = (str(i) for i in range(0, 100))
@@ -17,6 +19,11 @@ def generate_numbers():
 
 def generate_words():
     with open("wordlists/4and5.txt") as f:
+        words = f.read().splitlines()
+    return words
+
+def generate_words_all():
+    with open("wordlists/all.txt") as f:
         words = f.read().splitlines()
     return words
 
@@ -64,6 +71,13 @@ def create_random_password():
 
     return hash_password(f"{date}{word}{number}")
 
+def create_random_phrase():
+    words = generate_words_all()
+    phrase = ""
+    while len(phrase) < phraseMinLen:
+        phrase += random.choice(words)
+    return hash_password(phrase)
+
 def gen_randoms(num_hashes):
     num_hashes = int(num_hashes)
     passwords = []
@@ -79,11 +93,30 @@ def gen_randoms(num_hashes):
     with open("hashes/random.json", "w") as f:
         json.dump(passwords, f, indent=4)
 
+def gen_phrases(num_hashes):
+    num_hashes = int(num_hashes)
+    passwords = []
+
+    with ThreadPoolExecutor() as executor:
+        # Submit all tasks
+        futures = [executor.submit(create_random_password) for _ in range(num_hashes)]
+        
+        # Wait for tasks to complete and collect results
+        for future in tqdm(as_completed(futures), total=num_hashes):
+            passwords.append(future.result())
+
+    with open("hashes/phrases.json", "w") as f:
+        json.dump(passwords, f, indent=4)
 
 if __name__ == "__main__":
     #check for command line argument
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 2:
         print("Generating random hashes...")
-        gen_randoms(sys.argv[1])
+        if sys.argv[2] == 1:
+            gen_randoms(sys.argv[1])
+        elif sys.argv[2] == 2:
+            gen_randoms(sys.argv[1])
+        else:
+            print("Invalid pass type")
     else:
-        print("Please provide the number of hashes as a command line argument.")
+        print("Please provide the number of hashes and type of password as a command line argument.")
