@@ -3,7 +3,7 @@ import sys
 
 def main(type):
     # Read JSON data from a file
-    with open('hashes/random.json', 'r') as file:
+    with open('hashes/hashes.json', 'r') as file:
         data = json.load(file)
 
     # Extract sha512 hashes

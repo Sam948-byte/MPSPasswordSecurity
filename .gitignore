@@ -1,7 +1,8 @@
 wordlists/combined.txt
+wordlists/combined4and5.txt
 hashes/solution.txt
 wordlists/4and5.txt
 wordlists/all.txt
 __pycache__
-hashes/random.json
+hashes/hashes.json
 hashes/hashes.txt

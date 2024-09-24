@@ -60,16 +60,22 @@ fi
 python3 dictGen.py
 
 # clear files
-echo "" > hashes/random.json
+echo "" > hashes/hashes.json
 echo "" > hashes/hashes.txt
 echo "" > hashes/solution.txt
 
 #generate hashes
-python3 genRandomThreaded.py $1 $PASSTYPE
+python3 genThreaded.py $1 $PASSTYPE
 python3 parseFromJson.py $HASHTYPE
 
+if [ $PASSTYPE == 1 ]; then
+    WORDLIST="wordlists/combined4and5.txt"
+elif [ $PASSTYPE == 2 ]; then
+    WORDLIST="wordlists/combined.txt"
+fi
+
 #crack hashes
-hashcat -m $HASHTYPE -O -o hashes/solution.txt hashes/hashes.txt -a 6 wordlists/combined.txt ?d?d
+hashcat -m $HASHTYPE -O -o hashes/solution.txt hashes/hashes.txt -a 6 $WORDLIST ?d?d
 
 #check solution
 python3 solutionCheck.py $HASHTYPE

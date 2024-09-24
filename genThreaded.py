@@ -90,7 +90,7 @@ def gen_randoms(num_hashes):
         for future in tqdm(as_completed(futures), total=num_hashes):
             passwords.append(future.result())
 
-    with open("hashes/random.json", "w") as f:
+    with open("hashes/hashes.json", "w") as f:
         json.dump(passwords, f, indent=4)
 
 def gen_phrases(num_hashes):
@@ -105,17 +105,17 @@ def gen_phrases(num_hashes):
         for future in tqdm(as_completed(futures), total=num_hashes):
             passwords.append(future.result())
 
-    with open("hashes/phrases.json", "w") as f:
+    with open("hashes/hashes.json", "w") as f:
         json.dump(passwords, f, indent=4)
 
 if __name__ == "__main__":
     #check for command line argument
     if len(sys.argv) > 2:
         print("Generating random hashes...")
-        if sys.argv[2] == 1:
+        if sys.argv[2] == '1':
             gen_randoms(sys.argv[1])
-        elif sys.argv[2] == 2:
-            gen_randoms(sys.argv[1])
+        elif sys.argv[2] == '2':
+            gen_phrases(sys.argv[1])
         else:
             print("Invalid pass type")
     else:
