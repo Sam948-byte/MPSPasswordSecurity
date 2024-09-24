@@ -23,6 +23,17 @@ def generate_words():
     final_words = [word.title() for word in final_words]
     return final_words
 
+if not os.path.exists("wordlists"):
+    os.mkdir("wordlists")
+
+if os.path.isfile("wordlists/4and5.txt"):
+    print("Password gen dictionary exists")
+else:
+    with open("wordlists/4and5.txt", "w") as file:
+        words = generate_words()
+        for word in tqdm(words, total=len(words)):
+            file.write(word + "\n")
+
 
 print("Generating cracking dictionaries...")
 
@@ -36,11 +47,3 @@ else:
         for date in tqdm(dates, total=len(dates)):
             for word in words:
                 file.write(date + word + "\n")
-
-if os.path.isfile("wordlists/4and5.txt"):
-    print("Password gen dictionary exists")
-else:
-    with open("wordlists/4and5.txt", "w") as file:
-        words = generate_words()
-        for word in tqdm(words, total=len(words)):
-            file.write(word + "\n")
