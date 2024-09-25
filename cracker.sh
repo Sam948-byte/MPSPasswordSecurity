@@ -1,20 +1,49 @@
 #!/bin/bash
 
+# Check if the help flag is set
+if [ "$1" == "-h" ]; then
+    echo "Usage: $0 <hash num> <hash type> <pass type>
+    <number of hashes to generate> - number of hashes to generate
+    <type of hash> - type of hash to generate
+        0 - MD5
+        1400 - SHA-256
+        1700 - SHA-512
+        3200 - bcrypt
+        17400 - SHA-3 (Keccak)
+        17600 - SHA-3 (Keccak) - 512
+    <type of password> - type of password to generate
+        1 - MPS
+        2 - passphrase
+    call with -h for help"
+    exit 0
+fi
+
 # Check if the number of arguments provided is correct
-if [ $# -ne 1 ] && [ $# -ne 2 ]; then
-    echo "Usage: $0 <number of hashes to generate> <type of hash>"
+if [ $# -ne 1 ] && [ $# -ne 2 ] && [ $# -ne 3 ]; then
+    echo "Usage: $0  <hash num> <hash type> <pass type>
+    call with -h for help"
     exit 1
 fi
 
 # set hash type
-if [ $# -ne 2 ]; then
+if [ $# -ne 2 ] && [ $# -ne 3 ]; then
     echo "Type of hash not provided, defaulting to SHA-512"
     HASHTYPE=1700
-elif [ $2 -ne 0 ] && [ $2 -ne 1700 ] && [ $2 -ne 1400 ] && [ $2 -ne 17400 ] && [ $2 -ne 17600 ]; then
+elif [ $2 -ne 0 ] && [ $2 -ne 1700 ] && [ $2 -ne 1400 ] && [ $2 -ne 17400 ] && [ $2 -ne 17600 ] && [ $2 -ne 3200 ]; then
     echo "Invalid hash type, defaulting to SHA-512"
     HASHTYPE=1700
 else
     HASHTYPE=$2
+fi
+
+if [ $# -ne 3 ]; then
+    echo "Type of password not provided, defaulting to MPS"
+    PASSTYPE=1
+elif [ $3 -ne 1 ] && [ $3 -ne 2 ]; then
+    echo "Invalid password type, defaulting to MPS"
+    PASSTYPE=1
+else
+    PASSTYPE=$3
 fi
 
 #check for hashes directory and create if it doesn't exist
@@ -31,16 +60,22 @@ fi
 python3 dictGen.py
 
 # clear files
-echo "" > hashes/random.json
+echo "" > hashes/hashes.json
 echo "" > hashes/hashes.txt
 echo "" > hashes/solution.txt
 
 #generate hashes
-python3 genRandomThreaded.py $1
+python3 genThreaded.py $1 $PASSTYPE
 python3 parseFromJson.py $HASHTYPE
 
+if [ $PASSTYPE == 1 ]; then
+    WORDLIST="wordlists/combined4and5.txt"
+elif [ $PASSTYPE == 2 ]; then
+    WORDLIST="wordlists/combined.txt"
+fi
+
 #crack hashes
-hashcat -m $HASHTYPE -O -o hashes/solution.txt hashes/hashes.txt -a 6 wordlists/combined.txt ?d?d
+hashcat -m $HASHTYPE -O -o hashes/solution.txt hashes/hashes.txt -a 6 $WORDLIST ?d?d
 
 #check solution
 python3 solutionCheck.py $HASHTYPE
