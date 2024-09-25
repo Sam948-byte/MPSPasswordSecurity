@@ -52,17 +52,6 @@ else:
 
 print("Generating cracking dictionaries...")
 
-
-if os.path.isfile("wordlists/combined.txt"):
-    print("Full dictionary exists")
-else:
-    with open("wordlists/combined.txt", "w") as file:
-        dates = generate_dates()
-        words = open("wordlists/all.txt").read().splitlines()
-        for date in tqdm(dates, total=len(dates)):
-            for word in words:
-                file.write(date + word + "\n")
-
 if os.path.isfile("wordlists/combined4and5.txt"):
     print("4 and 5 dictionary exists")
 else:
