@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Check if the help flag is set
 if [ "$1" == "-h" ]; then
