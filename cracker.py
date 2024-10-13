@@ -1,5 +1,4 @@
 import calendar
-import sys
 import os
 import subprocess
 import time
@@ -12,6 +11,9 @@ import json
 import random
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+num_hashes = 100
+hash_type = 1400
+pass_type = 1
 
 def generate_dates(start_year=2003, end_year=2024):
     """Generate dates in MM/DD/YY format between the given years."""
@@ -61,21 +63,6 @@ def dictGen():
 
     print("Wordlists generated successfully.")
 
-def print_usage():
-    print(f"Usage: {sys.argv[0]} <hash num> <hash type> <pass type>")
-    print("<number of hashes to generate> - number of hashes to generate")
-    print("<type of hash> - type of hash to generate")
-    print("    0 - MD5")
-    print("    1400 - SHA-256")
-    print("    1700 - SHA-512")
-    print("    3200 - bcrypt")
-    print("    17400 - SHA-3 (Keccak)")
-    print("    17600 - SHA-3 (Keccak) - 512")
-    print("<type of password> - type of password to generate")
-    print("    1 - MPS")
-    print("    2 - passphrase")
-    print("call with -h for help")
-
 def generate_numbers():
     """ Generate a list of possible numbers in the format. """
     nums = (str(i) for i in range(0, 100))
@@ -113,7 +100,7 @@ def hash_password(password):
 
 def create_random_password():
     dates = generate_dates()
-    words = generate_words()
+    words = get_words()
     numbers = generate_numbers()
 
     date = random.choice(dates)
@@ -196,37 +183,6 @@ def solutionCheck(type):
 
 
 def main():
-    # Check if the help flag is set
-    if len(sys.argv) > 1 and sys.argv[1] == "-h":
-        print_usage()
-        sys.exit(0)
-
-    # Check if the number of arguments provided is correct
-    if len(sys.argv) not in [2, 3, 4]:
-        print_usage()
-        sys.exit(1)
-
-    # set hash type
-    if len(sys.argv) not in [3, 4]:
-        print("Type of hash not provided, defaulting to SHA-512")
-        hash_type = 1700
-    elif int(sys.argv[2]) not in [0, 1700, 1400, 17400, 17600, 3200]:
-        print("Invalid hash type, defaulting to SHA-512")
-        hash_type = 1700
-    else:
-        hash_type = int(sys.argv[2])
-
-    if len(sys.argv) != 4:
-        print("Type of password not provided, defaulting to MPS")
-        pass_type = 1
-    elif int(sys.argv[3]) not in [1, 2]:
-        print("Invalid password type, defaulting to MPS")
-        pass_type = 1
-    elif int(sys.argv[3]) == 2:
-        print("Passphrase not implemented, defaulting to MPS")
-        pass_type = 1
-    else:
-        pass_type = int(sys.argv[3])
 
     # check for hashes directory and create if it doesn't exist
     if not os.path.exists("hashes"):
@@ -241,7 +197,7 @@ def main():
     os.system("echo '' > hashes/hashes.txt")
 
     # generate hashes
-    gen_randoms(sys.argv[1])
+    gen_randoms(num_hashes)
     readFromJSON(str(hash_type))
 
     start_time = time.time()
