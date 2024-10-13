@@ -43,10 +43,9 @@ def main(type):
             noMatches += 1
             allgood = False
 
-    if allgood:
-        print("All hash values match!")
-    else:
+    if not allgood:
         print(f" {len(data) - noMatches}/{len(data)} hash values match.")
+        raise Exception("Hash values do not match.")
 
 
 if __name__ == "__main__":

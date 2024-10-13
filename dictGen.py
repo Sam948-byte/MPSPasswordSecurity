@@ -22,42 +22,34 @@ def generate_words():
     final_words = [word.title() for word in words if word.isalpha()]
     return final_words
 
+
 if not os.path.exists("wordlists"):
     os.mkdir("wordlists")
 
-if os.path.isfile("wordlists/4and5.txt") and os.path.isfile("wordlists/all.txt"):
-    print("Password gen dictionary exists")
-elif os.path.isfile("wordlists/all.txt"):
-    with open("wordlists/4and5.txt", "w") as file:
-        words = generate_words()
-        final_words = [word for word in words if (len(word) == 4 or len(word) == 5)]
-        for word in tqdm(final_words, total=len(final_words)):
-            file.write(word + "\n")
-elif os.path.isfile("wordlists/4and5.txt"):
+if not os.path.isfile("wordlists/all.txt"):
     with open("wordlists/all.txt", "w") as file:
         words = generate_words()
         for word in tqdm(words, total=len(words)):
             file.write(word + "\n")
-else:
+
+if not os.path.isfile("wordlists/4and5.txt"):
     with open("wordlists/4and5.txt", "w") as file:
-        words = generate_words()
-        final_words = [word for word in words if (len(word) == 4 or len(word) == 5)and word.isalpha()]
-        for word in tqdm(final_words, total=len(final_words)):
-            file.write(word + "\n")
-    with open("wordlists/all.txt", "w") as file:
-        words = generate_words()
-        final_words = [word for word in words if word.isalpha()]
+        words = open("wordlists/all.txt").read().splitlines()
+        final_words = [word for word in words if (len(word) == 4 or len(word) == 5)]
         for word in tqdm(final_words, total=len(final_words)):
             file.write(word + "\n")
 
-print("Generating cracking dictionaries...")
-
-if os.path.isfile("wordlists/combined4and5.txt"):
-    print("4 and 5 dictionary exists")
-else:
-    with open("wordlists/combined4and5.txt", "w") as file:
-        dates = generate_dates()
+if not os.path.isfile("wordlists/num4and5.txt"):
+    with open("wordlists/num4and5.txt", "w") as file:
         words = open("wordlists/4and5.txt").read().splitlines()
-        for date in tqdm(dates, total=len(dates)):
+        for num in range(100):
             for word in words:
-                file.write(date + word + "\n")
+                file.write(f"{word}{num:02}\n")
+
+if not os.path.isfile("wordlists/dates.txt"):
+    with open("wordlists/dates.txt", "w") as file:
+        dates = generate_dates()
+        for date in tqdm(dates, total=len(dates)):
+            file.write(date + "\n")
+
+print("Wordlists generated successfully.")
