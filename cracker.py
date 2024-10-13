@@ -100,7 +100,7 @@ def hash_password(password):
 
 def create_random_password():
     dates = generate_dates()
-    words = get_words()
+    words = open("wordlists/4and5.txt").read().splitlines()
     numbers = generate_numbers()
 
     date = random.choice(dates)
@@ -110,7 +110,6 @@ def create_random_password():
     return hash_password(f"{date}{word}{number}")
 
 def gen_randoms(num_hashes):
-    num_hashes = int(num_hashes)
     passwords = []
 
     with ThreadPoolExecutor() as executor:
