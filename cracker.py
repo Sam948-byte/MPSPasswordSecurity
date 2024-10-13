@@ -12,7 +12,7 @@ import random
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 num_hashes = 100
-hash_type = 1400
+hash_type = 3200
 pass_type = 1
 
 def generate_dates(start_year=2003, end_year=2024):
@@ -60,6 +60,15 @@ def dictGen():
             dates = generate_dates()
             for date in tqdm(dates, total=len(dates)):
                 file.write(date + "\n")
+
+    if not os.path.isfile("wordlists/combined4and5.txt"):
+        with open("wordlists/combined4and5.txt", "w") as file:
+            words = open("wordlists/4and5.txt").read().splitlines()
+            dates = open("wordlists/dates.txt").read().splitlines()
+            for word in words:
+                for date in dates:
+                    file.write(f"{word}{date}\n")
+            
 
     print("Wordlists generated successfully.")
 
