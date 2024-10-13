@@ -7,11 +7,9 @@ import bcrypt
 import nltk
 from nltk.corpus import wordnet
 from tqdm import tqdm
-import calendar
 import hashlib
 import json
 import random
-import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 
