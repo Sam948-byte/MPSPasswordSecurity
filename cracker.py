@@ -12,8 +12,8 @@ import random
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 num_hashes = 100
-hash_type = 0
-pass_type = 1
+hash_type = 3200
+pass_type = 2
 
 def generate_dates(start_year=2003, end_year=2024):
     """Generate dates in MM/DD/YY format between the given years."""
@@ -107,7 +107,7 @@ def hash_password(password):
         '3200': bcrypt_hash
     }
 
-def create_random_password(pass_type):
+def create_random_password():
     dates = generate_dates()
     words = open("wordlists/4and5.txt").read().splitlines()
     numbers = generate_numbers()
@@ -116,21 +116,19 @@ def create_random_password(pass_type):
     word = random.choice(words)
     number = random.choice(numbers)
 
-    password = ""
-
     if pass_type == 1: 
-        password = hash_password(f"{date}{word}{number}") 
+        return hash_password(f"{date}{word}{number}") 
     elif pass_type == 2:
-        password = hash_password(f"{word}{number}")
+        return hash_password(f"{word}{number}")
+    
+    raise ValueError("Invalid pass_type")
 
-    return password
-
-def gen_randoms(num_hashes, pass_type):
+def gen_randoms(num_hashes):
     passwords = []
 
     with ThreadPoolExecutor() as executor:
         # Submit all tasks
-        futures = [executor.submit(create_random_password(pass_type)) for _ in range(num_hashes)]
+        futures = [executor.submit(create_random_password) for _ in range(num_hashes)]
         
         # Wait for tasks to complete and collect results
         for future in tqdm(as_completed(futures), total=num_hashes):
@@ -212,7 +210,7 @@ def main():
     os.system("echo '' > hashes/hashes.txt")
 
     # generate hashes
-    gen_randoms(num_hashes, pass_type)
+    gen_randoms(num_hashes)
     readFromJSON(str(hash_type))
 
     start_time = time.time()
