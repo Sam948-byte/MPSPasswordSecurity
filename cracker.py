@@ -12,7 +12,7 @@ import random
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 num_hashes = 100
-hash_type = 3200
+hash_type = 0
 pass_type = 1
 
 def generate_dates(start_year=2003, end_year=2024):
@@ -107,7 +107,7 @@ def hash_password(password):
         '3200': bcrypt_hash
     }
 
-def create_random_password():
+def create_random_password(pass_type):
     dates = generate_dates()
     words = open("wordlists/4and5.txt").read().splitlines()
     numbers = generate_numbers()
@@ -116,14 +116,21 @@ def create_random_password():
     word = random.choice(words)
     number = random.choice(numbers)
 
-    return hash_password(f"{date}{word}{number}")
+    password = ""
 
-def gen_randoms(num_hashes):
+    if pass_type == 1: 
+        password = hash_password(f"{date}{word}{number}") 
+    elif pass_type == 2:
+        password = hash_password(f"{word}{number}")
+
+    return password
+
+def gen_randoms(num_hashes, pass_type):
     passwords = []
 
     with ThreadPoolExecutor() as executor:
         # Submit all tasks
-        futures = [executor.submit(create_random_password) for _ in range(num_hashes)]
+        futures = [executor.submit(create_random_password(pass_type)) for _ in range(num_hashes)]
         
         # Wait for tasks to complete and collect results
         for future in tqdm(as_completed(futures), total=num_hashes):
@@ -205,7 +212,7 @@ def main():
     os.system("echo '' > hashes/hashes.txt")
 
     # generate hashes
-    gen_randoms(num_hashes)
+    gen_randoms(num_hashes, pass_type)
     readFromJSON(str(hash_type))
 
     start_time = time.time()
@@ -227,22 +234,23 @@ def main():
                 "wordlists/num4and5.txt",
             ]
         )
-    # elif pass_type == 2:
-    #     subprocess.run(
-    #         [
-    #             "hashcat",
-    #             "-m",
-    #             str(hash_type),
-    #             "-O",
-    #             "-o",
-    #             "hashes/solution.txt",
-    #             "hashes/hashes.txt",
-    #             "-a",
-    #             "6",
-    #             "wordlists/all.txt",
-    #             "?w?w?w?w?w?w?w?w",
-    #         ]
-    #     )
+    #known date
+    elif pass_type == 2:
+        subprocess.run(
+            [
+                "hashcat",
+                "-m",
+                str(hash_type),
+                "-O",
+                "-o",
+                "hashes/solution.txt",
+                "hashes/hashes.txt",
+                "-a",
+                "6",
+                "wordlists/4and5.txt",
+                "?d?d",
+            ]
+        )
 
     end_time = time.time()
 
