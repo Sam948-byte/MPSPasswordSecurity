@@ -230,6 +230,8 @@ def main():
                 "1",
                 "wordlists/dates.txt",
                 "wordlists/num4and5.txt",
+                "-D",
+                "1,2",
             ]
         )
     #known date
@@ -247,6 +249,8 @@ def main():
                 "6",
                 "wordlists/4and5.txt",
                 "?d?d",
+                "-D",
+                "1,2",
             ]
         )
 
