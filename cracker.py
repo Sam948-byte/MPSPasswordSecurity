@@ -1,4 +1,4 @@
-import calendar
+import datetime
 import os
 import subprocess
 import time
@@ -11,18 +11,21 @@ import json
 import random
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-num_hashes = 100
-hash_type = 3200
-pass_type = 2
+NUM_HASHES = 100
+HASH_TYPE = 0
+PASS_TYPE = 1
+START_DATE = datetime.date.fromisoformat("2003-01-01")
+END_DATE = datetime.date.fromisoformat("2024-01-01")
 
-def generate_dates(start_year=2003, end_year=2024):
-    """Generate dates in MM/DD/YY format between the given years."""
+def generate_dates():
+    #Generate dates between the given dates
     dates = []
-    for year in range(start_year, end_year + 1):
-        for month in range(1, 13):
-            for day in range(1, calendar.monthrange(year, month)[1] + 1):
-                dates.append(f"{month:02}/{day:02}/{year % 100:02}")
+    delta = END_DATE - START_DATE
+    for i in range(delta.days + 1):
+        date = START_DATE + datetime.timedelta(days=i)
+        dates.append(date.strftime("%m/%d/%y"))
     return dates
+
 
 def get_words():
     nltk.download("wordnet")
@@ -55,11 +58,20 @@ def dictGen():
                 for word in words:
                     file.write(f"{word}{num:02}\n")
 
+    # If file does not exist or date range does not match
     if not os.path.isfile("wordlists/dates.txt"):
         with open("wordlists/dates.txt", "w") as file:
             dates = generate_dates()
             for date in tqdm(dates, total=len(dates)):
                 file.write(date + "\n")
+    else:
+        with open("wordlists/dates.txt", "r") as file:
+            dates = file.read().splitlines()
+        if len(dates) == 0 or not (dates[0] == START_DATE.strftime("%m/%d/%y") and dates[-1] == END_DATE.strftime("%m/%d/%y")):
+            with open("wordlists/dates.txt", "w") as file:
+                dates = generate_dates()
+                for date in tqdm(dates, total=len(dates)):
+                    file.write(date + "\n")
 
     if not os.path.isfile("wordlists/combined4and5.txt"):
         with open("wordlists/combined4and5.txt", "w") as file:
@@ -116,9 +128,9 @@ def create_random_password():
     word = random.choice(words)
     number = random.choice(numbers)
 
-    if pass_type == 1: 
+    if PASS_TYPE == 1: 
         return hash_password(f"{date}{word}{number}") 
-    elif pass_type == 2:
+    elif PASS_TYPE == 2:
         return hash_password(f"{word}{number}")
     
     raise ValueError("Invalid pass_type")
@@ -210,18 +222,18 @@ def main():
     os.system("echo '' > hashes/hashes.txt")
 
     # generate hashes
-    gen_randoms(num_hashes)
-    readFromJSON(str(hash_type))
+    gen_randoms(NUM_HASHES)
+    readFromJSON(str(HASH_TYPE))
 
     start_time = time.time()
 
     # crack hashes
-    if pass_type == 1:
+    if PASS_TYPE == 1:
         subprocess.run(
             [
                 "hashcat",
                 "-m",
-                str(hash_type),
+                str(HASH_TYPE),
                 "-O",
                 "-o",
                 "hashes/solution.txt",
@@ -235,12 +247,12 @@ def main():
             ]
         )
     #known date
-    elif pass_type == 2:
+    elif PASS_TYPE == 2:
         subprocess.run(
             [
                 "hashcat",
                 "-m",
-                str(hash_type),
+                str(HASH_TYPE),
                 "-O",
                 "-o",
                 "hashes/solution.txt",
@@ -257,7 +269,7 @@ def main():
     end_time = time.time()
 
     # check solution
-    solutionCheck(str(hash_type))
+    solutionCheck(str(HASH_TYPE))
     print(f"Time taken: {end_time - start_time} seconds")
 
 
