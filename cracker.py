@@ -1,7 +1,6 @@
 import datetime
 import os
 import subprocess
-import time
 import bcrypt
 import nltk
 from nltk.corpus import wordnet
@@ -14,15 +13,15 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 NUM_HASHES = 100
 HASH_TYPE = 0
 PASS_TYPE = 1
-START_DATE = datetime.date.fromisoformat("2003-01-01")
-END_DATE = datetime.date.fromisoformat("2024-01-01")
+START_DATE = "2003-01-01"
+END_DATE = "2024-01-01"
 
-def generate_dates():
+def generate_dates(end_date, start_date):
     #Generate dates between the given dates
     dates = []
-    delta = END_DATE - START_DATE
+    delta = start_date - end_date
     for i in range(delta.days + 1):
-        date = START_DATE + datetime.timedelta(days=i)
+        date = start_date + datetime.timedelta(days=i)
         dates.append(date.strftime("%m/%d/%y"))
     return dates
 
@@ -34,7 +33,7 @@ def get_words():
     final_words = [word.title() for word in words if word.isalpha()]
     return final_words
 
-def dictGen():
+def dictGen(start_date, end_date):
     if not os.path.exists("wordlists"):
         os.mkdir("wordlists")
 
@@ -61,15 +60,15 @@ def dictGen():
     # If file does not exist or date range does not match
     if not os.path.isfile("wordlists/dates.txt"):
         with open("wordlists/dates.txt", "w") as file:
-            dates = generate_dates()
+            dates = generate_dates(start_date, end_date)
             for date in tqdm(dates, total=len(dates)):
                 file.write(date + "\n")
     else:
         with open("wordlists/dates.txt", "r") as file:
             dates = file.read().splitlines()
-        if len(dates) == 0 or not (dates[0] == START_DATE.strftime("%m/%d/%y") and dates[-1] == END_DATE.strftime("%m/%d/%y")):
+        if len(dates) == 0 or not (dates[0] == start_date.strftime("%m/%d/%y") and dates[-1] == end_date.strftime("%m/%d/%y")):
             with open("wordlists/dates.txt", "w") as file:
-                dates = generate_dates()
+                dates = generate_dates(start_date, end_date)
                 for date in tqdm(dates, total=len(dates)):
                     file.write(date + "\n")
 
@@ -119,8 +118,8 @@ def hash_password(password):
         '3200': bcrypt_hash
     }
 
-def create_random_password():
-    dates = generate_dates()
+def create_random_password(start_date, end_date, pass_type):
+    dates = generate_dates(start_date, end_date)
     words = open("wordlists/4and5.txt").read().splitlines()
     numbers = generate_numbers()
 
@@ -128,19 +127,17 @@ def create_random_password():
     word = random.choice(words)
     number = random.choice(numbers)
 
-    if PASS_TYPE == 1: 
+    if pass_type == 1: 
         return hash_password(f"{date}{word}{number}") 
-    elif PASS_TYPE == 2:
+    elif pass_type == 2:
         return hash_password(f"{word}{number}")
-    
-    raise ValueError("Invalid pass_type")
 
-def gen_randoms(num_hashes):
+def gen_randoms(num_hashes, start_date, end_date, pass_type):
     passwords = []
 
     with ThreadPoolExecutor() as executor:
         # Submit all tasks
-        futures = [executor.submit(create_random_password) for _ in range(num_hashes)]
+        futures = [executor.submit(create_random_password, start_date, end_date, pass_type) for _ in range(num_hashes)]
         
         # Wait for tasks to complete and collect results
         for future in tqdm(as_completed(futures), total=num_hashes):
@@ -207,14 +204,19 @@ def solutionCheck(type):
         raise Exception("Hash values do not match.")
 
 
-def main():
+def main(start_date, end_date, num_hashes, hash_type, pass_type):
+    print("test")
+    #parse dates
+    start_date = datetime.date.fromisoformat(start_date)
+    end_date = datetime.date.fromisoformat(end_date)
+
 
     # check for hashes directory and create if it doesn't exist
     if not os.path.exists("hashes"):
         os.makedirs("hashes")
 
     # generate wordlist
-    dictGen()
+    dictGen(start_date, end_date)
 
     # clear files hashes.json, solution.txt and hashes.txt
     os.system("echo '' > hashes/hashes.json")
@@ -222,18 +224,16 @@ def main():
     os.system("echo '' > hashes/hashes.txt")
 
     # generate hashes
-    gen_randoms(NUM_HASHES)
-    readFromJSON(str(HASH_TYPE))
-
-    start_time = time.time()
+    gen_randoms(num_hashes, start_date, end_date, pass_type)
+    readFromJSON(str(hash_type))
 
     # crack hashes
-    if PASS_TYPE == 1:
+    if pass_type == 1:
         subprocess.run(
             [
                 "hashcat",
                 "-m",
-                str(HASH_TYPE),
+                str(hash_type),
                 "-O",
                 "-o",
                 "hashes/solution.txt",
@@ -244,15 +244,17 @@ def main():
                 "wordlists/num4and5.txt",
                 "-D",
                 "1,2",
+                "-w",
+                "3",
             ]
         )
     #known date
-    elif PASS_TYPE == 2:
+    elif pass_type == 2:
         subprocess.run(
             [
                 "hashcat",
                 "-m",
-                str(HASH_TYPE),
+                str(hash_type),
                 "-O",
                 "-o",
                 "hashes/solution.txt",
@@ -263,15 +265,14 @@ def main():
                 "?d?d",
                 "-D",
                 "1,2",
+                "-w",
+                "3",
             ]
         )
 
-    end_time = time.time()
-
     # check solution
-    solutionCheck(str(HASH_TYPE))
-    print(f"Time taken: {end_time - start_time} seconds")
+    solutionCheck(str(hash_type))
 
 
 if __name__ == "__main__":
-    main()
+    main(START_DATE, END_DATE, NUM_HASHES, HASH_TYPE, PASS_TYPE)
