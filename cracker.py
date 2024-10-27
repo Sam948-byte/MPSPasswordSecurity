@@ -1,6 +1,10 @@
 import datetime
+import io
 import os
+import re
+import selectors
 import subprocess
+import sys
 import bcrypt
 import nltk
 from nltk.corpus import wordnet
@@ -10,14 +14,83 @@ import json
 import random
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-NUM_HASHES = 100
+NUM_HASHES = 10
 HASH_TYPE = 0
 PASS_TYPE = 1
 START_DATE = "2003-01-01"
 END_DATE = "2024-01-01"
 
+
+# Necessary for printing and capturing output at the same time
+def capture_subprocess_output(subprocess_args):
+    # Start subprocess
+    # bufsize = 1 means output is line buffered
+    # universal_newlines = True is required for line buffering
+    process = subprocess.Popen(
+        subprocess_args,
+        bufsize=1,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        universal_newlines=True,
+    )
+
+    # Create callback function for process output
+    buf = io.StringIO()
+
+    def handle_output(stream, mask):
+        # Because the process' output is line buffered, there's only ever one
+        # line to read when this function is called
+        line = stream.readline()
+        buf.write(line)
+        sys.stdout.write(line)
+
+    # Register callback for an "available for read" event from subprocess' stdout stream
+    selector = selectors.DefaultSelector()
+    selector.register(process.stdout, selectors.EVENT_READ, handle_output)
+
+    # Loop until subprocess is terminated
+    while process.poll() is None:
+        # Wait for events and handle them with their registered callbacks
+        events = selector.select()
+        for key, mask in events:
+            callback = key.data
+            callback(key.fileobj, mask)
+
+    # Get process return code
+    return_code = process.wait()
+    selector.close()
+
+    success = return_code == 0
+
+    # Store buffered output
+    output = buf.getvalue()
+    buf.close()
+
+    return (success, output)
+
+
+def add_to_json_file(file_path, new_data):
+    try:
+        # Load existing data
+        with open(file_path, "r") as file:
+            data = json.load(file)
+            # Ensure data is a list to allow appending
+            if not isinstance(data, list):
+                data = [data]
+    except (FileNotFoundError, json.JSONDecodeError):
+        # If file doesn't exist or is empty, start with an empty list
+        data = []
+
+    # Append the new data as a new entry in the list
+    data.append(new_data)
+
+    # Write updated data back to the file
+    with open(file_path, "w") as file:
+        json.dump(data, file, indent=4)
+
+
 def generate_dates(end_date, start_date):
-    #Generate dates between the given dates
+    # Generate dates between the given dates
     dates = []
     delta = start_date - end_date
     for i in range(delta.days + 1):
@@ -32,6 +105,7 @@ def get_words():
     words = list(wordnet.words())
     final_words = [word.title() for word in words if word.isalpha()]
     return final_words
+
 
 def dictGen(start_date, end_date):
     if not os.path.exists("wordlists"):
@@ -66,7 +140,10 @@ def dictGen(start_date, end_date):
     else:
         with open("wordlists/dates.txt", "r") as file:
             dates = file.read().splitlines()
-        if len(dates) == 0 or not (dates[0] == start_date.strftime("%m/%d/%y") and dates[-1] == end_date.strftime("%m/%d/%y")):
+        if len(dates) == 0 or not (
+            dates[0] == start_date.strftime("%m/%d/%y")
+            and dates[-1] == end_date.strftime("%m/%d/%y")
+        ):
             with open("wordlists/dates.txt", "w") as file:
                 dates = generate_dates(start_date, end_date)
                 for date in tqdm(dates, total=len(dates)):
@@ -79,44 +156,46 @@ def dictGen(start_date, end_date):
             for word in words:
                 for date in dates:
                     file.write(f"{word}{date}\n")
-            
 
     print("Wordlists generated successfully.")
 
+
 def generate_numbers():
-    """ Generate a list of possible numbers in the format. """
+    """Generate a list of possible numbers in the format."""
     nums = (str(i) for i in range(0, 100))
 
     # Append a 0 to the front of each number if it is less than 10
     return [f"0{num}" if len(num) == 1 else num for num in nums]
+
 
 def generate_words():
     with open("wordlists/4and5.txt") as f:
         words = f.read().splitlines()
     return words
 
-def hash_password(password):
 
-    password = password.encode('utf-8')    
+def hash_password(password):
+    password = password.encode("utf-8")
     sha256_hash = hashlib.sha256(password).hexdigest()
     sha512_hash = hashlib.sha512(password).hexdigest()
-    md5_hash    = hashlib.md5(password).hexdigest()
-    shake_256   = hashlib.shake_256(password).hexdigest(64)
+    md5_hash = hashlib.md5(password).hexdigest()
+    shake_256 = hashlib.shake_256(password).hexdigest(64)
     sha3_256 = hashlib.sha3_256(password).hexdigest()
     sha3_512 = hashlib.sha3_512(password).hexdigest()
-    bcrypt_hash = bcrypt.hashpw(password, bcrypt.gensalt()).decode('utf-8')
+    bcrypt_hash = bcrypt.hashpw(password, bcrypt.gensalt()).decode("utf-8")
 
-    #return dict of hashes
+    # return dict of hashes
     return {
-        'password': password.decode('utf-8'),
-        '1400': sha256_hash,
-        '1700': sha512_hash,
-        '0': md5_hash,
-        'shake_256': shake_256,
-        '17400': sha3_256,
-        '17600': sha3_512,
-        '3200': bcrypt_hash
+        "password": password.decode("utf-8"),
+        "1400": sha256_hash,
+        "1700": sha512_hash,
+        "0": md5_hash,
+        "shake_256": shake_256,
+        "17400": sha3_256,
+        "17600": sha3_512,
+        "3200": bcrypt_hash,
     }
+
 
 def create_random_password(start_date, end_date, pass_type):
     dates = generate_dates(start_date, end_date)
@@ -127,18 +206,22 @@ def create_random_password(start_date, end_date, pass_type):
     word = random.choice(words)
     number = random.choice(numbers)
 
-    if pass_type == 1: 
-        return hash_password(f"{date}{word}{number}") 
+    if pass_type == 1:
+        return hash_password(f"{date}{word}{number}")
     elif pass_type == 2:
         return hash_password(f"{word}{number}")
+
 
 def gen_randoms(num_hashes, start_date, end_date, pass_type):
     passwords = []
 
     with ThreadPoolExecutor() as executor:
         # Submit all tasks
-        futures = [executor.submit(create_random_password, start_date, end_date, pass_type) for _ in range(num_hashes)]
-        
+        futures = [
+            executor.submit(create_random_password, start_date, end_date, pass_type)
+            for _ in range(num_hashes)
+        ]
+
         # Wait for tasks to complete and collect results
         for future in tqdm(as_completed(futures), total=num_hashes):
             passwords.append(future.result())
@@ -146,9 +229,10 @@ def gen_randoms(num_hashes, start_date, end_date, pass_type):
     with open("hashes/hashes.json", "w") as f:
         json.dump(passwords, f, indent=4)
 
+
 def readFromJSON(type):
     # Read JSON data from a file
-    with open('hashes/hashes.json', 'r') as file:
+    with open("hashes/hashes.json", "r") as file:
         data = json.load(file)
 
     # Extract sha512 hashes
@@ -157,6 +241,7 @@ def readFromJSON(type):
     with open("hashes/hashes.txt", "w") as f:
         for hash in hashes:
             f.write(hash + "\n")
+
 
 def solutionCheck(type):
     # Read JSON data from a file
@@ -206,10 +291,9 @@ def solutionCheck(type):
 
 def main(start_date, end_date, num_hashes, hash_type, pass_type):
     print("test")
-    #parse dates
+    # parse dates
     start_date = datetime.date.fromisoformat(start_date)
     end_date = datetime.date.fromisoformat(end_date)
-
 
     # check for hashes directory and create if it doesn't exist
     if not os.path.exists("hashes"):
@@ -229,7 +313,7 @@ def main(start_date, end_date, num_hashes, hash_type, pass_type):
 
     # crack hashes
     if pass_type == 1:
-        subprocess.run(
+        result = capture_subprocess_output(
             [
                 "hashcat",
                 "-m",
@@ -248,9 +332,9 @@ def main(start_date, end_date, num_hashes, hash_type, pass_type):
                 "3",
             ]
         )
-    #known date
+    # known date
     elif pass_type == 2:
-        subprocess.run(
+        result = capture_subprocess_output(
             [
                 "hashcat",
                 "-m",
@@ -272,6 +356,39 @@ def main(start_date, end_date, num_hashes, hash_type, pass_type):
 
     # check solution
     solutionCheck(str(hash_type))
+
+    print("All hashes match.")
+
+    # get runtime for hashcat
+    start_match = re.search(r"Started: (.+)", result[1])
+    stop_match = re.search(r"Stopped: (.+)", result[1])
+
+    if start_match and stop_match:
+        start_time_str = start_match.group(1)
+        stop_time_str = stop_match.group(1)
+
+        # Parse the times
+        time_format = "%a %b %d %H:%M:%S %Y"
+        start_time = datetime.datetime.strptime(start_time_str, time_format)
+        stop_time = datetime.datetime.strptime(stop_time_str, time_format)
+
+        # Compute the elapsed time
+        elapsed_time = stop_time - start_time
+        print(f"Elapsed time: {elapsed_time}")
+    else:
+        print("Could not find start and/or stop time in output.")
+        return 1
+
+    dict = {
+        "Hash Type": hash_type,
+        "Pass Type": pass_type,
+        "Number of Hashes": num_hashes,
+        "Password Start Date": start_date.strftime("%y/%m/%d"),
+        "Password End Date": end_date.strftime("%y/%m/%d"),
+        "Elapsed Time": str(elapsed_time),
+    }
+
+    add_to_json_file("data/data.json", dict)
 
 
 if __name__ == "__main__":
