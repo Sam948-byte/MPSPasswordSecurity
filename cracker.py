@@ -14,7 +14,7 @@ import json
 import random
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-NUM_HASHES = 10
+NUM_HASHES = 1000
 HASH_TYPE = 0
 PASS_TYPE = 1
 START_DATE = "2003-01-01"

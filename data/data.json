@@ -1,0 +1,34 @@
+[
+    {
+        "Hash Type": 0,
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "03/01/01",
+        "Password End Date": "24/01/01",
+        "Elapsed Time": "0:00:08"
+    },
+    {
+        "Hash Type": 1400,
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "03/01/01",
+        "Password End Date": "24/01/01",
+        "Elapsed Time": "0:00:09"
+    },
+    {
+        "Hash Type": 1700,
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "03/01/01",
+        "Password End Date": "24/01/01",
+        "Elapsed Time": "0:00:11"
+    },
+    {
+        "Hash Type": 17600,
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "03/01/01",
+        "Password End Date": "24/01/01",
+        "Elapsed Time": "0:00:20"
+    }
+]
