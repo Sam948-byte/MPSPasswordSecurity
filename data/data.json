@@ -30,5 +30,21 @@
         "Password Start Date": "03/01/01",
         "Password End Date": "24/01/01",
         "Elapsed Time": "0:00:20"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "03/01/01",
+        "Password End Date": "24/01/01",
+        "Elapsed Time": "0:00:06"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "03/01/01",
+        "Password End Date": "24/01/01",
+        "Elapsed Time": "0:00:05"
     }
 ]

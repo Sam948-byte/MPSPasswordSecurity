@@ -15,7 +15,7 @@ import random
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 NUM_HASHES = 1000
-HASH_TYPE = 0
+HASH_TYPE = "1400"
 PASS_TYPE = 1
 START_DATE = "2003-01-01"
 END_DATE = "2024-01-01"
@@ -68,6 +68,15 @@ def capture_subprocess_output(subprocess_args):
 
     return (success, output)
 
+def execute(cmd):
+    popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
+    for stdout_line in iter(popen.stdout.readline, ""):
+        yield stdout_line 
+    popen.stdout.close()
+    return_code = popen.wait()
+    if return_code:
+        raise subprocess.CalledProcessError(return_code, cmd)
+    
 
 def add_to_json_file(file_path, new_data):
     try:
@@ -173,31 +182,70 @@ def generate_words():
         words = f.read().splitlines()
     return words
 
+def hash_password(password, hash_type):
+    salt = os.urandom(16)  # Generate a random 16-byte salt
+    password_bytes = password.encode("utf-8")
 
-def hash_password(password):
-    password = password.encode("utf-8")
-    sha256_hash = hashlib.sha256(password).hexdigest()
-    sha512_hash = hashlib.sha512(password).hexdigest()
-    md5_hash = hashlib.md5(password).hexdigest()
-    shake_256 = hashlib.shake_256(password).hexdigest(64)
-    sha3_256 = hashlib.sha3_256(password).hexdigest()
-    sha3_512 = hashlib.sha3_512(password).hexdigest()
-    bcrypt_hash = bcrypt.hashpw(password, bcrypt.gensalt()).decode("utf-8")
+    # Create a dictionary to map hash types to their corresponding functions
+    hash_dict = {
+        "1400": lambda: hashlib.sha256(password_bytes).hexdigest(),
+        "1400_salted": lambda: hashlib.sha256(salt + password_bytes).hexdigest() + ":" + salt.hex(),
+        "1700": lambda: hashlib.sha512(password_bytes).hexdigest(),
+        "1700_salted": lambda: hashlib.sha512(salt + password_bytes).hexdigest() + ":" + salt.hex(),
+        "0": lambda: hashlib.md5(password_bytes).hexdigest(),
+        "0_salted": lambda: hashlib.md5(salt + password_bytes).hexdigest() + ":" + salt.hex(),
+        "17400": lambda: hashlib.sha3_256(password_bytes).hexdigest(),
+        "17400_salted": lambda: hashlib.sha3_256(salt + password_bytes).hexdigest() + ":" + salt.hex(),
+        "17600": lambda: hashlib.sha3_512(password_bytes).hexdigest(),
+        "17600_salted": lambda: hashlib.sha3_512(salt + password_bytes).hexdigest() + ":" + salt.hex(),
+        "3200": lambda: bcrypt.hashpw(password_bytes, bcrypt.gensalt()).decode("utf-8")
+    }
 
-    # return dict of hashes
+    
+
+    # Return dict of hashes
     return {
-        "password": password.decode("utf-8"),
-        "1400": sha256_hash,
-        "1700": sha512_hash,
-        "0": md5_hash,
-        "shake_256": shake_256,
-        "17400": sha3_256,
-        "17600": sha3_512,
-        "3200": bcrypt_hash,
+        "password": password,
+        "hash": hash_dict.get(hash_type, lambda: "Invalid hash type")()
     }
 
 
-def create_random_password(start_date, end_date, pass_type):
+# def hash_password(password, hash_type):
+    salt = os.urandom(16)  # Generate a random 16-byte salt 
+    password = password.encode("utf-8")
+    hash = ""
+
+    if(hash_type == "0"):
+        hash = hashlib.md5(password).hexdigest()
+    elif(hash_type == "0_salted"):
+        hash = hashlib.md5(salt + password).hexdigest() + ":" + salt.hex()
+    elif(hash_type == "1400"):
+        hash = hashlib.sha256(password).hexdigest()
+    elif(hash_type == "1400_salted"):
+        hash = hashlib.sha256(salt + password).hexdigest() + ":" + salt.hex()
+    elif(hash_type == "1700"):
+        hash = hashlib.sha512(password).hexdigest()
+    elif(hash_type == "1700_salted"):
+        hash = hashlib.sha512(salt + password).hexdigest() + ":" + salt.hex()
+    elif(hash_type == "3200"):
+        hash = bcrypt.hashpw(password, bcrypt.gensalt()).decode("utf-8")
+    elif(hash_type == "17400"):
+        hash = hashlib.sha3_256(password).hexdigest()
+    elif(hash_type == "17400_salted"):
+        hash = hashlib.sha3_256(salt + password).hexdigest() + ":" + salt.hex()
+    elif(hash_type == "17600"):
+        hash = hashlib.sha3_512(password).hexdigest()
+    elif(hash_type == "17600_salted"):
+        hash = hashlib.sha3_512(salt + password).hexdigest() + ":" + salt.hex()
+    
+    # return dict of hashes
+    return {
+        "password": password.decode("utf-8"),
+        "hash": hash
+    }
+
+
+def create_random_password(start_date, end_date, pass_type, hash_type):
     dates = generate_dates(start_date, end_date)
     words = open("wordlists/4and5.txt").read().splitlines()
     numbers = generate_numbers()
@@ -207,18 +255,18 @@ def create_random_password(start_date, end_date, pass_type):
     number = random.choice(numbers)
 
     if pass_type == 1:
-        return hash_password(f"{date}{word}{number}")
+        return hash_password(f"{date}{word}{number}", hash_type)
     elif pass_type == 2:
-        return hash_password(f"{word}{number}")
+        return hash_password(f"{word}{number}", hash_type)
 
 
-def gen_randoms(num_hashes, start_date, end_date, pass_type):
+def gen_randoms(num_hashes, start_date, end_date, pass_type, hash_type):
     passwords = []
 
     with ThreadPoolExecutor() as executor:
         # Submit all tasks
         futures = [
-            executor.submit(create_random_password, start_date, end_date, pass_type)
+            executor.submit(create_random_password, start_date, end_date, pass_type, hash_type)
             for _ in range(num_hashes)
         ]
 
@@ -230,20 +278,20 @@ def gen_randoms(num_hashes, start_date, end_date, pass_type):
         json.dump(passwords, f, indent=4)
 
 
-def readFromJSON(type):
+def readFromJSON():
     # Read JSON data from a file
     with open("hashes/hashes.json", "r") as file:
         data = json.load(file)
 
-    # Extract sha512 hashes
-    hashes = [entry[type] for entry in data]
+    # Extract hashes
+    hashes = [entry["hash"] for entry in data]
 
     with open("hashes/hashes.txt", "w") as f:
         for hash in hashes:
             f.write(hash + "\n")
 
 
-def solutionCheck(type):
+def solutionCheck():
     # Read JSON data from a file
     with open("hashes/hashes.json", "r") as file:
         data = json.load(file)
@@ -258,7 +306,7 @@ def solutionCheck(type):
 
     # Populate the dictionary
     for entry in data:
-        hash_value = entry[type]
+        hash_value = entry["hash"]
         password = entry["password"]
         hash_password_pairs[hash_value] = password
 
@@ -308,8 +356,8 @@ def main(start_date, end_date, num_hashes, hash_type, pass_type):
     os.system("echo '' > hashes/hashes.txt")
 
     # generate hashes
-    gen_randoms(num_hashes, start_date, end_date, pass_type)
-    readFromJSON(str(hash_type))
+    gen_randoms(num_hashes, start_date, end_date, pass_type, hash_type)
+    readFromJSON()
 
     # crack hashes
     if pass_type == 1:
@@ -317,7 +365,7 @@ def main(start_date, end_date, num_hashes, hash_type, pass_type):
             [
                 "hashcat",
                 "-m",
-                str(hash_type),
+                str(hash_type.split("_")[0]),
                 "-O",
                 "-o",
                 "hashes/solution.txt",
@@ -338,7 +386,7 @@ def main(start_date, end_date, num_hashes, hash_type, pass_type):
             [
                 "hashcat",
                 "-m",
-                str(hash_type),
+                str(hash_type.split("_")[0]),
                 "-O",
                 "-o",
                 "hashes/solution.txt",
@@ -355,7 +403,7 @@ def main(start_date, end_date, num_hashes, hash_type, pass_type):
         )
 
     # check solution
-    solutionCheck(str(hash_type))
+    solutionCheck()
 
     print("All hashes match.")
 
