@@ -420,6 +420,7 @@ def main(start_date, end_date, num_hashes, hash_type, pass_type):
 
         # Compute the elapsed time
         elapsed_time = stop_time - start_time
+        elapsed_time = elapsed_time.total_seconds()
         print(f"Elapsed time: {elapsed_time}")
     else:
         print("Could not find start and/or stop time in output.")
