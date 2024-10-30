@@ -56,6 +56,14 @@ def capture_subprocess_output(subprocess_args):
             callback = key.data
             callback(key.fileobj, mask)
 
+    # Ensure all remaining output is processed
+    while True:
+        line = process.stdout.readline()
+        if not line:
+            break
+        buf.write(line)
+        sys.stdout.write(line)
+
     # Get process return code
     return_code = process.wait()
     selector.close()
