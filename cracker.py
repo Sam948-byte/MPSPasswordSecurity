@@ -14,6 +14,11 @@ import json
 import random
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+FOUR_AND_FIVE_HASH = '3e0919a7138ce8174ccdcc4a77569110'
+ALL_HASH = '40205dd3726fb78061c51f3a0dd2323c'
+COMBINED_HASH = '97db035f4e6d7bee6391c72e125670c7'
+NUM_HASH = 'b2142f2f9f271002314fb2652d157977'
+
 NUM_HASHES = 1000
 HASH_TYPE = "0"
 PASS_TYPE = 1
@@ -100,7 +105,7 @@ def add_to_json_file(file_path, new_data):
 def generate_dates(start_date, end_date):
     # Generate dates between the given dates
     dates = []
-    delta =  end_date - start_date
+    delta = end_date - start_date
     for i in range(delta.days + 1):
         date = start_date + datetime.timedelta(days=i)
         dates.append(date.strftime("%m/%d/%y"))
@@ -156,14 +161,32 @@ def dictGen(start_date, end_date):
                 dates = generate_dates(start_date, end_date)
                 for date in tqdm(dates, total=len(dates)):
                     file.write(date + "\n")
-
     if not os.path.isfile("wordlists/combined4and5.txt"):
-        with open("wordlists/combined4and5.txt", "w") as file:
+      with open("wordlists/combined4and5.txt", "w") as file:
             words = open("wordlists/4and5.txt").read().splitlines()
             dates = open("wordlists/dates.txt").read().splitlines()
             for word in words:
                 for date in dates:
                     file.write(f"{word}{date}\n")
+
+    #checksum
+    with open("wordlists/4and5.txt", "r") as file:
+        fourAndFiveHash = hashlib.md5(file.read().encode()).hexdigest()
+    with open("wordlists/all.txt", "r") as file:
+        allHash = hashlib.md5(file.read().encode()).hexdigest()
+    with open("wordlists/combined4and5.txt", "r") as file:
+        combined4and5Hash = hashlib.md5(file.read().encode()).hexdigest()
+    with open("wordlists/num4and5.txt", "r") as file:
+        num4and5Hash = hashlib.md5(file.read().encode()).hexdigest()
+
+    if fourAndFiveHash != FOUR_AND_FIVE_HASH:
+        raise Exception("4and5.txt file checksum does not match.")
+    if allHash != ALL_HASH:
+        raise Exception("all.txt file checksum does not match.")
+    if combined4and5Hash != COMBINED_HASH:
+        raise Exception("combined4and5.txt file checksum does not match.")
+    if num4and5Hash != NUM_HASH:
+        raise Exception("num4and5.txt file checksum does not match.")
 
     print("Wordlists generated successfully.")
 
