@@ -343,7 +343,7 @@ def main(start_date, end_date, num_hashes, hash_type, pass_type):
             [
                 "hashcat",
                 "-m",
-                str(hash_type.split("_")[0]),
+                str(hash_type),
                 "-O",
                 "-o",
                 "hashes/solution.txt",
@@ -364,7 +364,7 @@ def main(start_date, end_date, num_hashes, hash_type, pass_type):
             [
                 "hashcat",
                 "-m",
-                str(hash_type.split("_")[0]),
+                str(hash_type),
                 "-O",
                 "-o",
                 "hashes/solution.txt",
