@@ -76,15 +76,6 @@ def capture_subprocess_output(subprocess_args):
 
     return (success, output)
 
-def execute(cmd):
-    popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
-    for stdout_line in iter(popen.stdout.readline, ""):
-        yield stdout_line 
-    popen.stdout.close()
-    return_code = popen.wait()
-    if return_code:
-        raise subprocess.CalledProcessError(return_code, cmd)
-    
 
 def add_to_json_file(file_path, new_data):
     try:
@@ -190,6 +181,7 @@ def generate_words():
         words = f.read().splitlines()
     return words
 
+
 def hash_password(password, hash_type):
     salt = os.urandom(16)  # Generate a random 16-byte salt
     password_bytes = password.encode("utf-8")
@@ -197,58 +189,29 @@ def hash_password(password, hash_type):
     # Create a dictionary to map hash types to their corresponding functions
     hash_dict = {
         "1400": lambda: hashlib.sha256(password_bytes).hexdigest(),
-        "1410": lambda: hashlib.sha256(salt + password_bytes).hexdigest() + ":" + salt.hex(),
+        "1410": lambda: hashlib.sha256(salt + password_bytes).hexdigest()
+        + ":"
+        + salt.hex(),
         "1700": lambda: hashlib.sha512(password_bytes).hexdigest(),
-        "1710": lambda: hashlib.sha512(salt + password_bytes).hexdigest() + ":" + salt.hex(),
+        "1710": lambda: hashlib.sha512(salt + password_bytes).hexdigest()
+        + ":"
+        + salt.hex(),
         "0": lambda: hashlib.md5(password_bytes).hexdigest(),
         "17400": lambda: hashlib.sha3_256(password_bytes).hexdigest(),
-        "17410": lambda: hashlib.sha3_256(salt + password_bytes).hexdigest() + ":" + salt.hex(),
+        "17410": lambda: hashlib.sha3_256(salt + password_bytes).hexdigest()
+        + ":"
+        + salt.hex(),
         "17600": lambda: hashlib.sha3_512(password_bytes).hexdigest(),
-        "1711": lambda: hashlib.sha3_512(salt + password_bytes).hexdigest() + ":" + salt.hex(),
-        "3200": lambda: bcrypt.hashpw(password_bytes, bcrypt.gensalt()).decode("utf-8")
+        "1711": lambda: hashlib.sha3_512(salt + password_bytes).hexdigest()
+        + ":"
+        + salt.hex(),
+        "3200": lambda: bcrypt.hashpw(password_bytes, bcrypt.gensalt()).decode("utf-8"),
     }
-
-    
 
     # Return dict of hashes
     return {
         "password": password,
-        "hash": hash_dict.get(hash_type, lambda: "Invalid hash type")()
-    }
-
-
-# def hash_password(password, hash_type):
-    salt = os.urandom(16)  # Generate a random 16-byte salt 
-    password = password.encode("utf-8")
-    hash = ""
-
-    if(hash_type == "0"):
-        hash = hashlib.md5(password).hexdigest()
-    elif(hash_type == "0_salted"):
-        hash = hashlib.md5(salt + password).hexdigest() + ":" + salt.hex()
-    elif(hash_type == "1400"):
-        hash = hashlib.sha256(password).hexdigest()
-    elif(hash_type == "1400_salted"):
-        hash = hashlib.sha256(salt + password).hexdigest() + ":" + salt.hex()
-    elif(hash_type == "1700"):
-        hash = hashlib.sha512(password).hexdigest()
-    elif(hash_type == "1700_salted"):
-        hash = hashlib.sha512(salt + password).hexdigest() + ":" + salt.hex()
-    elif(hash_type == "3200"):
-        hash = bcrypt.hashpw(password, bcrypt.gensalt()).decode("utf-8")
-    elif(hash_type == "17400"):
-        hash = hashlib.sha3_256(password).hexdigest()
-    elif(hash_type == "17400_salted"):
-        hash = hashlib.sha3_256(salt + password).hexdigest() + ":" + salt.hex()
-    elif(hash_type == "17600"):
-        hash = hashlib.sha3_512(password).hexdigest()
-    elif(hash_type == "17600_salted"):
-        hash = hashlib.sha3_512(salt + password).hexdigest() + ":" + salt.hex()
-    
-    # return dict of hashes
-    return {
-        "password": password.decode("utf-8"),
-        "hash": hash
+        "hash": hash_dict.get(hash_type, lambda: "Invalid hash type")(),
     }
 
 
@@ -273,7 +236,9 @@ def gen_randoms(num_hashes, start_date, end_date, pass_type, hash_type):
     with ThreadPoolExecutor() as executor:
         # Submit all tasks
         futures = [
-            executor.submit(create_random_password, start_date, end_date, pass_type, hash_type)
+            executor.submit(
+                create_random_password, start_date, end_date, pass_type, hash_type
+            )
             for _ in range(num_hashes)
         ]
 
