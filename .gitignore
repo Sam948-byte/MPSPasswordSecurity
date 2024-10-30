@@ -8,3 +8,4 @@ wordlists/combined4and5.txt
 __pycache__
 hashes/hashes.json
 hashes/hashes.txt
+data/*.json

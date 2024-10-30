@@ -2,18 +2,20 @@ import json
 import matplotlib
 import matplotlib.pyplot
 
-with open("data/data.json", "r") as f:
+with open("data/data1.json", "r") as f:
     data = json.load(f)
 
 # print(data)
 
 hashNames = {
-        0: "MD5",
-        1400: "SHA-256",
-        1700: "SHA-512",
-        17600: "SHA3-512",
-        1711: "SHA3-512 Salted",
-        1410: "SHA1-512 Salted",
+        "0": "MD5",
+        "1400": "SHA-256",
+        "1410": "SHA-256 Salted",
+        "1700": "SHA-512",
+        "1710": "SHA-512 Salted",
+        "17600": "SHA3-512",
+        "1711": "SHA3-512 Salted",
+        "1410": "SHA1-512 Salted",
     }
 
 
@@ -39,7 +41,7 @@ print(average_times)
 for average_time in average_times:
     sum = 0
     for time in average_time["times"]:
-        sum += int(time)
+        sum += float(time)
     
     average_time["average"] = sum / len(average_time["times"])
 
