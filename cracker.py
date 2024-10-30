@@ -14,15 +14,10 @@ import json
 import random
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-FOUR_AND_FIVE_HASH = '3e0919a7138ce8174ccdcc4a77569110'
-ALL_HASH = '40205dd3726fb78061c51f3a0dd2323c'
-COMBINED_HASH = '97db035f4e6d7bee6391c72e125670c7'
-NUM_HASH = 'b2142f2f9f271002314fb2652d157977'
-
-NUM_HASHES = 1000
-HASH_TYPE = "0"
+NUM_HASHES = 10
+HASH_TYPE = "1710"
 PASS_TYPE = 1
-START_DATE = "2023-01-01"
+START_DATE = "2003-01-01"
 END_DATE = "2024-01-01"
 
 
@@ -163,31 +158,12 @@ def dictGen(start_date, end_date):
                 for date in tqdm(dates, total=len(dates)):
                     file.write(date + "\n")
     if not os.path.isfile("wordlists/combined4and5.txt"):
-      with open("wordlists/combined4and5.txt", "w") as file:
+        with open("wordlists/combined4and5.txt", "w") as file:
             words = open("wordlists/4and5.txt").read().splitlines()
             dates = open("wordlists/dates.txt").read().splitlines()
             for word in words:
                 for date in dates:
                     file.write(f"{word}{date}\n")
-
-    #checksum
-    with open("wordlists/4and5.txt", "r") as file:
-        fourAndFiveHash = hashlib.md5(file.read().encode()).hexdigest()
-    with open("wordlists/all.txt", "r") as file:
-        allHash = hashlib.md5(file.read().encode()).hexdigest()
-    with open("wordlists/combined4and5.txt", "r") as file:
-        combined4and5Hash = hashlib.md5(file.read().encode()).hexdigest()
-    with open("wordlists/num4and5.txt", "r") as file:
-        num4and5Hash = hashlib.md5(file.read().encode()).hexdigest()
-
-    if fourAndFiveHash != FOUR_AND_FIVE_HASH:
-        raise Exception("4and5.txt file checksum does not match.")
-    if allHash != ALL_HASH:
-        raise Exception("all.txt file checksum does not match.")
-    if combined4and5Hash != COMBINED_HASH:
-        raise Exception("combined4and5.txt file checksum does not match.")
-    if num4and5Hash != NUM_HASH:
-        raise Exception("num4and5.txt file checksum does not match.")
 
     print("Wordlists generated successfully.")
 
@@ -213,22 +189,22 @@ def hash_password(password, hash_type):
     # Create a dictionary to map hash types to their corresponding functions
     hash_dict = {
         "1400": lambda: hashlib.sha256(password_bytes).hexdigest(),
-        "1410": lambda: hashlib.sha256(salt + password_bytes).hexdigest()
+        "1410": lambda: hashlib.sha256(
+            (password_bytes + salt.hex().encode("utf-8"))
+        ).hexdigest()
         + ":"
         + salt.hex(),
         "1700": lambda: hashlib.sha512(password_bytes).hexdigest(),
-        "1710": lambda: hashlib.sha512(salt + password_bytes).hexdigest()
+        "1710": lambda: hashlib.sha512(
+            (password_bytes + salt.hex().encode("utf-8"))
+        ).hexdigest()
         + ":"
         + salt.hex(),
         "0": lambda: hashlib.md5(password_bytes).hexdigest(),
         "17400": lambda: hashlib.sha3_256(password_bytes).hexdigest(),
-        "17410": lambda: hashlib.sha3_256(salt + password_bytes).hexdigest()
-        + ":"
-        + salt.hex(),
+        # "17410": lambda: hashlib.sha3_256(salt + password_bytes).hexdigest() + ":" + salt.hex(),
         "17600": lambda: hashlib.sha3_512(password_bytes).hexdigest(),
-        "1711": lambda: hashlib.sha3_512(salt + password_bytes).hexdigest()
-        + ":"
-        + salt.hex(),
+        # "1711": lambda: hashlib.sha3_512(salt + password_bytes).hexdigest() + ":" + salt.hex(),
         "3200": lambda: bcrypt.hashpw(password_bytes, bcrypt.gensalt()).decode("utf-8"),
     }
 
@@ -309,10 +285,11 @@ def solutionCheck():
     for entry in solution:
         if entry == "":
             continue
-        if entry.__contains__(":") == 2:
+        numColons = entry.count(":")
+        if numColons == 2:
             hash_value, salt, password = entry.split(":")
             hash_value = hash_value + ":" + salt
-        elif entry.__contains__(":") == 1:
+        elif numColons == 1:
             hash_value, password = entry.split(":")
         else:
             raise Exception("Invalid solution format")
