@@ -13,7 +13,7 @@ hashNames = {
         1700: "SHA-512",
         17600: "SHA3-512",
         1711: "SHA3-512 Salted",
-        1710: "SHA1-512 Salted",
+        1410: "SHA1-512 Salted",
     }
 
 
