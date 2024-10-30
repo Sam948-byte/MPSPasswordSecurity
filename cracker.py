@@ -188,7 +188,7 @@ def hash_password(password, hash_type):
 
     # Create a dictionary to map hash types to their corresponding functions
     hash_dict = {
-        "1400": lambda: hashlib.sha256(password_bytes).hexdigest(),
+        # "1400": lambda: hashlib.sha256(password_bytes).hexdigest(),
         "1410": lambda: hashlib.sha256(
             (password_bytes + salt.hex().encode("utf-8"))
         ).hexdigest()
@@ -209,9 +209,14 @@ def hash_password(password, hash_type):
     }
 
     # Return dict of hashes
+    def get_hash(hash_dict, hash_type):
+        if hash_type not in hash_dict:
+            raise Exception("Invalid hash type: " + hash_type)
+        return hash_dict[hash_type]()
+
     return {
         "password": password,
-        "hash": hash_dict.get(hash_type, lambda: "Invalid hash type")(),
+        "hash": get_hash(hash_dict, hash_type),
     }
 
 

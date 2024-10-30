@@ -9,3 +9,4 @@ __pycache__
 hashes/hashes.json
 hashes/hashes.txt
 data/*.json
+data/main.log
