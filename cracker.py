@@ -285,7 +285,13 @@ def solutionCheck():
     for entry in solution:
         if entry == "":
             continue
-        hash_value, password = entry.split(":")
+        if entry.__contains__(":") == 2:
+            hash_value, salt, password = entry.split(":")
+            hash_value = hash_value + ":" + salt
+        elif entry.__contains__(":") == 1:
+            hash_value, password = entry.split(":")
+        else:
+            raise Exception("Invalid solution format")
         solution_pairs[hash_value] = password
 
     allgood = True
