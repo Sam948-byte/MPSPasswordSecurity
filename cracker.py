@@ -15,9 +15,9 @@ import random
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 NUM_HASHES = 1000
-HASH_TYPE = "1711"
+HASH_TYPE = "0"
 PASS_TYPE = 1
-START_DATE = "2003-01-01"
+START_DATE = "2023-01-01"
 END_DATE = "2024-01-01"
 
 
@@ -97,10 +97,10 @@ def add_to_json_file(file_path, new_data):
         json.dump(data, file, indent=4)
 
 
-def generate_dates(end_date, start_date):
+def generate_dates(start_date, end_date):
     # Generate dates between the given dates
     dates = []
-    delta = start_date - end_date
+    delta =  end_date - start_date
     for i in range(delta.days + 1):
         date = start_date + datetime.timedelta(days=i)
         dates.append(date.strftime("%m/%d/%y"))
