@@ -27,6 +27,7 @@ END_DATE = "2024-01-01"
 
 
 # Necessary for printing and capturing output at the same time
+# Credit to https://gist.github.com/nawatts/e2cdca610463200c12eac2a14efc0bfb
 def capture_subprocess_output(subprocess_args):
     # Start subprocess
     # bufsize = 1 means output is line buffered
