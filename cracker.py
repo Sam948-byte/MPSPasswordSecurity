@@ -188,7 +188,7 @@ def hash_password(password, hash_type):
 
     # Create a dictionary to map hash types to their corresponding functions
     hash_dict = {
-        # "1400": lambda: hashlib.sha256(password_bytes).hexdigest(),
+        "1400": lambda: hashlib.sha256(password_bytes).hexdigest(),
         "1410": lambda: hashlib.sha256(
             (password_bytes + salt.hex().encode("utf-8"))
         ).hexdigest()
