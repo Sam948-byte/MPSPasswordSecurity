@@ -2,13 +2,317 @@
     {
         "Hash Type": "0",
         "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "5.0"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "6.0"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "10.0"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "6.0"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "6.0"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "8.0"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "6.0"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "11.0"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "5.0"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "12.0"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "3.0"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
         "Number of Hashes": 1,
         "Password Start Date": "01/01/03",
         "Password End Date": "01/01/24",
         "Elapsed Time": "4.0"
     },
     {
-        "Hash Type": "1410",
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "11.0"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "6.0"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "14.0"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "3.0"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "3.0"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "9.0"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "6.0"
+    },
+    {
+        "Hash Type": "0",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "3.0"
+    },
+    {
+        "Hash Type": "1400",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "13.0"
+    },
+    {
+        "Hash Type": "1400",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "11.0"
+    },
+    {
+        "Hash Type": "1400",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "11.0"
+    },
+    {
+        "Hash Type": "1400",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "17.0"
+    },
+    {
+        "Hash Type": "1400",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "18.0"
+    },
+    {
+        "Hash Type": "1400",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "19.0"
+    },
+    {
+        "Hash Type": "1400",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "11.0"
+    },
+    {
+        "Hash Type": "1400",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "11.0"
+    },
+    {
+        "Hash Type": "1400",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "18.0"
+    },
+    {
+        "Hash Type": "1400",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "17.0"
+    },
+    {
+        "Hash Type": "1400",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "4.0"
+    },
+    {
+        "Hash Type": "1400",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "7.0"
+    },
+    {
+        "Hash Type": "1400",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "5.0"
+    },
+    {
+        "Hash Type": "1400",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "3.0"
+    },
+    {
+        "Hash Type": "1400",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "6.0"
+    },
+    {
+        "Hash Type": "1400",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "16.0"
+    },
+    {
+        "Hash Type": "1400",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "7.0"
+    },
+    {
+        "Hash Type": "1400",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "4.0"
+    },
+    {
+        "Hash Type": "1400",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "9.0"
+    },
+    {
+        "Hash Type": "1400",
         "Pass Type": 1,
         "Number of Hashes": 1,
         "Password Start Date": "01/01/03",
@@ -18,29 +322,85 @@
     {
         "Hash Type": "1700",
         "Pass Type": 1,
-        "Number of Hashes": 1,
+        "Number of Hashes": 1000,
         "Password Start Date": "01/01/03",
         "Password End Date": "01/01/24",
-        "Elapsed Time": "7.0"
+        "Elapsed Time": "19.0"
     },
     {
-        "Hash Type": "1710",
+        "Hash Type": "1700",
         "Pass Type": 1,
-        "Number of Hashes": 1,
+        "Number of Hashes": 1000,
         "Password Start Date": "01/01/03",
         "Password End Date": "01/01/24",
-        "Elapsed Time": "7.0"
+        "Elapsed Time": "24.0"
     },
     {
-        "Hash Type": "17600",
+        "Hash Type": "1700",
         "Pass Type": 1,
-        "Number of Hashes": 1,
+        "Number of Hashes": 1000,
         "Password Start Date": "01/01/03",
         "Password End Date": "01/01/24",
-        "Elapsed Time": "10.0"
+        "Elapsed Time": "21.0"
     },
     {
-        "Hash Type": "1710",
+        "Hash Type": "1700",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "12.0"
+    },
+    {
+        "Hash Type": "1700",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "19.0"
+    },
+    {
+        "Hash Type": "1700",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "27.0"
+    },
+    {
+        "Hash Type": "1700",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "20.0"
+    },
+    {
+        "Hash Type": "1700",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "25.0"
+    },
+    {
+        "Hash Type": "1700",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "13.0"
+    },
+    {
+        "Hash Type": "1700",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "12.0"
+    },
+    {
+        "Hash Type": "1700",
         "Pass Type": 1,
         "Number of Hashes": 1,
         "Password Start Date": "01/01/03",
@@ -48,31 +408,15 @@
         "Elapsed Time": "12.0"
     },
     {
-        "Hash Type": "1410",
+        "Hash Type": "1700",
         "Pass Type": 1,
         "Number of Hashes": 1,
         "Password Start Date": "01/01/03",
         "Password End Date": "01/01/24",
-        "Elapsed Time": "8.0"
+        "Elapsed Time": "12.0"
     },
     {
-        "Hash Type": "0",
-        "Pass Type": 1,
-        "Number of Hashes": 1,
-        "Password Start Date": "01/01/03",
-        "Password End Date": "01/01/24",
-        "Elapsed Time": "5.0"
-    },
-    {
-        "Hash Type": "1410",
-        "Pass Type": 1,
-        "Number of Hashes": 1,
-        "Password Start Date": "01/01/03",
-        "Password End Date": "01/01/24",
-        "Elapsed Time": "4.0"
-    },
-    {
-        "Hash Type": "1710",
+        "Hash Type": "1700",
         "Pass Type": 1,
         "Number of Hashes": 1,
         "Password Start Date": "01/01/03",
@@ -88,15 +432,23 @@
         "Elapsed Time": "20.0"
     },
     {
-        "Hash Type": "17600",
+        "Hash Type": "1700",
         "Pass Type": 1,
         "Number of Hashes": 1,
         "Password Start Date": "01/01/03",
         "Password End Date": "01/01/24",
-        "Elapsed Time": "8.0"
+        "Elapsed Time": "14.0"
     },
     {
-        "Hash Type": "0",
+        "Hash Type": "1700",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "21.0"
+    },
+    {
+        "Hash Type": "1700",
         "Pass Type": 1,
         "Number of Hashes": 1,
         "Password Start Date": "01/01/03",
@@ -109,10 +461,130 @@
         "Number of Hashes": 1,
         "Password Start Date": "01/01/03",
         "Password End Date": "01/01/24",
-        "Elapsed Time": "10.0"
+        "Elapsed Time": "6.0"
     },
     {
-        "Hash Type": "1710",
+        "Hash Type": "1700",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "17.0"
+    },
+    {
+        "Hash Type": "1700",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "17.0"
+    },
+    {
+        "Hash Type": "17600",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "14.0"
+    },
+    {
+        "Hash Type": "17600",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "34.0"
+    },
+    {
+        "Hash Type": "17600",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "23.0"
+    },
+    {
+        "Hash Type": "17600",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "23.0"
+    },
+    {
+        "Hash Type": "17600",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "29.0"
+    },
+    {
+        "Hash Type": "17600",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "17.0"
+    },
+    {
+        "Hash Type": "17600",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "34.0"
+    },
+    {
+        "Hash Type": "17600",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "27.0"
+    },
+    {
+        "Hash Type": "17600",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "31.0"
+    },
+    {
+        "Hash Type": "17600",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "33.0"
+    },
+    {
+        "Hash Type": "17600",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "24.0"
+    },
+    {
+        "Hash Type": "17600",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "11.0"
+    },
+    {
+        "Hash Type": "17600",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "9.0"
+    },
+    {
+        "Hash Type": "17600",
         "Pass Type": 1,
         "Number of Hashes": 1,
         "Password Start Date": "01/01/03",
@@ -121,6 +593,326 @@
     },
     {
         "Hash Type": "17600",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "23.0"
+    },
+    {
+        "Hash Type": "17600",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "11.0"
+    },
+    {
+        "Hash Type": "17600",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "7.0"
+    },
+    {
+        "Hash Type": "17600",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "11.0"
+    },
+    {
+        "Hash Type": "17600",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "12.0"
+    },
+    {
+        "Hash Type": "17600",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "4.0"
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 2987
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 3159
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 3063
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 3080
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 2981
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 3144
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 2994
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 3047
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 2913
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 3097
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 7
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 9
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 11
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 8
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 5
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 6
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 8
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 8
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 5
+    },
+    {
+        "Hash Type": "1710",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": 6
+    },
+    {
+        "Hash Type": "1410",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "1207.0"
+    },
+    {
+        "Hash Type": "1410",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "1221.0"
+    },
+    {
+        "Hash Type": "1410",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "1227.0"
+    },
+    {
+        "Hash Type": "1410",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "1213.0"
+    },
+    {
+        "Hash Type": "1410",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "1231.0"
+    },
+    {
+        "Hash Type": "1410",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "1192.0"
+    },
+    {
+        "Hash Type": "1410",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "1175.0"
+    },
+    {
+        "Hash Type": "1410",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "1212.0"
+    },
+    {
+        "Hash Type": "1410",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "1187.0"
+    },
+    {
+        "Hash Type": "1410",
+        "Pass Type": 1,
+        "Number of Hashes": 1000,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "1200.0"
+    },
+    {
+        "Hash Type": "1410",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "4.0"
+    },
+    {
+        "Hash Type": "1410",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "7.0"
+    },
+    {
+        "Hash Type": "1410",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "6.0"
+    },
+    {
+        "Hash Type": "1410",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "8.0"
+    },
+    {
+        "Hash Type": "1410",
         "Pass Type": 1,
         "Number of Hashes": 1,
         "Password Start Date": "01/01/03",
@@ -136,11 +928,35 @@
         "Elapsed Time": "4.0"
     },
     {
-        "Hash Type": "0",
+        "Hash Type": "1410",
         "Pass Type": 1,
         "Number of Hashes": 1,
         "Password Start Date": "01/01/03",
         "Password End Date": "01/01/24",
-        "Elapsed Time": "11.0"
+        "Elapsed Time": "5.0"
+    },
+    {
+        "Hash Type": "1410",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "5.0"
+    },
+    {
+        "Hash Type": "1410",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "5.0"
+    },
+    {
+        "Hash Type": "1410",
+        "Pass Type": 1,
+        "Number of Hashes": 1,
+        "Password Start Date": "01/01/03",
+        "Password End Date": "01/01/24",
+        "Elapsed Time": "4.0"
     }
 ]

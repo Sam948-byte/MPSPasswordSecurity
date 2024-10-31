@@ -590,21 +590,6 @@
         "Password Start Date": "01/01/03",
         "Password End Date": "01/01/24",
         "Elapsed Time": 22
-    },
-    {
-        "Hash Type": "1410",
-        "Pass Type": 1,
-        "Number of Hashes": 1000,
-        "Password Start Date": "01/01/03",
-        "Password End Date": "01/01/24",
-        "Elapsed Time": 1242
-    },
-    {
-        "Hash Type": "0",
-        "Pass Type": 1,
-        "Number of Hashes": 1000,
-        "Password Start Date": "01/01/03",
-        "Password End Date": "01/01/24",
-        "Elapsed Time": "5.0"
     }
+   
 ]

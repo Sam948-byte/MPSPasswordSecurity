@@ -2,7 +2,7 @@ import json
 import matplotlib
 import matplotlib.pyplot as plt
 
-with open("data/data1.json", "r") as f:
+with open("data/data.json", "r") as f:
     data = json.load(f)
 
 
