@@ -22,7 +22,7 @@ def main():
     if not os.path.exists("data/main.log"):
         os.system("touch data/main.log")
 
-    log(f"Starting main.py at {datetime.now()}")
+    log(f"\nStarting main.py at {datetime.now()}")
 
     for hash in HASH_TYPES:
         for num in NUM_HASHES:
@@ -33,10 +33,9 @@ def main():
                 try:
                     cracker.main(START_DATE, END_DATE, num, hash, PASS_TYPE)
                 except Exception as e:
-                    with open("data/main.log", "a") as f:
-                        f.write(
-                            f"Error in cracker.main with hash {hash}, num {num}, iteration {i}: {e}\n"
-                        )
+                    log(
+                        f"Error in cracker.main with hash {hash}, num {num}, iteration {i}: {e}\n"
+                    )
 
 
 if __name__ == "__main__":
